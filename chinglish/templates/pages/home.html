@@ -1,1 +1,212 @@
 {% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <main>
+    <section class="services" id="services">
+      <div class="container">
+        <div class="title">
+          <p class="title__small">Услуги</p>
+          <p class="title__big">Services</p>
+        </div>
+        <div class="services__items">
+          <div class="services__item card">
+            <div class="card--nonactive">Групповые занятия</div>
+            <div class="card--active animate__animated animate__fadeIn">
+              <p class="card__time">1 месяц</p>
+              <p class="card__name">Групповые занятия</p>
+              <p class="card__description">Описание что за занятия такие Описание что за занятия такие Описание что за
+                занятия такие Описание что за занятия такие</p>
+              <div class="card__price">
+                <p class="card__cost">700 P</p>
+                <div class="btn">Записаться</div>
+              </div>
+            </div>
+          </div>
+          <div class="services__item card">
+            <div class="card--nonactive">Пробный урок</div>
+            <div class="card--active animate__animated animate__fadeIn">
+              <p class="card__time">1 месяц</p>
+              <p class="card__name">Пробный урок</p>
+              <p class="card__description">Описание что за занятия такие Описание что за занятия такие Описание что за
+                занятия такие Описание что за занятия такие</p>
+              <div class="card__price">
+                <p class="card__cost">0 P</p>
+                <div class="btn">Записаться</div>
+              </div>
+            </div>
+          </div>
+          <div class="services__item card">
+            <div class="card--nonactive">Online-занятия</div>
+            <div class="card--active animate__animated animate__fadeIn">
+              <p class="card__time">1 месяц</p>
+              <p class="card__name">Online-занятия</p>
+              <p class="card__description">Описание что за занятия такие Описание что за занятия такие Описание что за
+                занятия такие Описание что за занятия такие</p>
+              <div class="card__price">
+                <p class="card__cost">1000 P</p>
+                <div class="btn">Записаться</div>
+              </div>
+            </div>
+          </div>
+          <div class="services__item card">
+            <div class="card--nonactive">Индивидуальные занятия</div>
+            <div class="card--active animate__animated animate__fadeIn">
+              <p class="card__time">1 месяц</p>
+              <p class="card__name">Индивидуальные занятия</p>
+              <p class="card__description">Описание что за занятия такие Описание что за занятия такие Описание что за
+                занятия такие Описание что за занятия такие</p>
+              <div class="card__price">
+                <p class="card__cost">800 P</p>
+                <div class="btn">Записаться</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="team" id="team">
+      <div class="container">
+        <div class="title">
+          <p class="title__small">Команда</p>
+          <p class="title__big">Our Team</p>
+        </div>
+        <div class="team__slide">
+          <div class="team__info">
+            <p class="team__name">Плотникова Дарья, 21&nbsp;год</p>
+            <div class="team__text">Основатель и преподаватель языковой школы CHINGLISH.
+              <ul>
+                <li>Окончила Российский университет дружбы народов им. Патриса Лумумбы в г. Москва</li>
+                <li>Являюсь квалифицированным лингвистом-переводчиком (Китайский / Английский)</li>
+                <li>Преподаю Китайский и Английский языки более 3-х лет</li>
+              </ul>
+            </div>
+            <p class="team__phrase">"Окунись в увлекательный мир иностранных языков!"</p>
+            <div class="team__cert cert  owl-theme owl-carousel">
+              <div class="cert__img"><img src="{% static 'images/team/cert-1.jpg' %}" alt="Сертификат"></div>
+              <div class="cert__img"><img src="{% static 'images/team/cert-1.jpg' %}" alt="Сертификат"></div>
+              <div class="cert__img"><img src="{% static 'images/team/cert-1.jpg' %}" alt="Сертификат"></div>
+              <div class="cert__img"><img src="{% static 'images/team/cert-1.jpg' %}" alt="Сертификат"></div>
+              <div class="cert__img"><img src="{% static 'images/team/cert-1.jpg' %}" alt="Сертификат"></div>
+            </div>
+          </div>
+          <div class="team__img"><img src="{% static 'images/team/people-2.png' %}" alt="Фото"></div>
+        </div>
+      </div>
+    </section>
+    <section class="rewievs" id="rewievs">
+      <div class="container">
+        <div class="title">
+          <p class="title__small">Отзывы</p>
+          <p class="title__big">Rewievs</p>
+        </div>
+        <div class="rewievs__slider owl-theme owl-carousel">
+          <div class="rewievs__slide">
+            <div class="rewievs__info">
+              <img src="{% static 'images/rewievs/people-rew.jpg' %}" alt="фото" class="rewievs__img">
+              <div class="rewievs__text">
+                <p class="rewievs__name">Ребекка</p>
+                <p class="rewievs__level">18 лет, Начинающий</p>
+              </div>
+            </div>
+            <div class="rewievs__rewiev">Реализации существенных финансовых и административных условий.</div>
+          </div>
+          <div class="rewievs__slide">
+            <div class="rewievs__info">
+              <img src="{% static 'images/rewievs/people-rew.jpg' %}" alt="фото" class="rewievs__img">
+              <div class="rewievs__text">
+                <p class="rewievs__name">Евгения</p>
+                <p class="rewievs__level">18 лет, Начинающий</p>
+              </div>
+            </div>
+            <div class="rewievs__rewiev">Идейные соображения высшего порядка, а также сложившаяся структура организации
+              способствует подготовки и реализации существенных финансовых и административных условий.
+            </div>
+          </div>
+          <div class="rewievs__slide">
+            <div class="rewievs__info">
+              <img src="{% static 'images/rewievs/people-rew.jpg' %}" alt="фото" class="rewievs__img">
+              <div class="rewievs__text">
+                <p class="rewievs__name">Вероника</p>
+                <p class="rewievs__level">18 лет, Начинающий</p>
+              </div>
+            </div>
+            <div class="rewievs__rewiev">Реализации существенных финансовых и административных условий.</div>
+          </div>
+          <div class="rewievs__slide">
+            <div class="rewievs__info">
+              <img src="{% static 'images/rewievs/people-rew.jpg' %}" alt="фото" class="rewievs__img">
+              <div class="rewievs__text">
+                <p class="rewievs__name">Виктория</p>
+                <p class="rewievs__level">18 лет, Начинающий</p>
+              </div>
+            </div>
+            <div class="rewievs__rewiev">Идейные соображения высшего порядка, а также сложившаяся структура организации
+              способствует подготовки и реализации существенных финансовых и административных условий.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="form" id="form">
+      <div class="container">
+        <div class="title">
+          <p class="title__small">Запись на занятие</p>
+          <p class="title__big">Form for lesson</p>
+        </div>
+        <form action="#" class="form-lesson">
+          <input type="text" class="input" placeholder="Выберите вид занятия">
+          <input type="text" class="input" placeholder="Выберите преподавателя">
+          <input type="text" class="input" placeholder="Выберите дату">
+          <input type="text" class="input" placeholder="Выберите время">
+          <input type="text" class="input" placeholder="Введите ФИО">
+          <input type="text" class="input" placeholder="Введите номер телефона">
+          <input type="text" class="input" placeholder="Введите возраст">
+          <input type="text" class="input" placeholder="Введите класс">
+          <input type="submit" class="btn" value="Записаться на бесплатное занятие">
+        </form>
+      </div>
+    </section>
+    <section class="contacts" id="contacts">
+      <div class="container">
+        <div class="title">
+          <p class="title__small">Как нас найти</p>
+          <p class="title__big">Location and Contacts</p>
+        </div>
+        <div class="contacts__block">
+          <div class="contacts__info">
+            <div class="contacts__item">
+              <img src="{% static 'images/contacts/place.svg' %}" alt="место">
+              <p>Толстого, 10</p>
+            </div>
+            <div class="contacts__item">
+              <img src="{% static 'images/contacts/clock.svg' %}" alt="часы">
+              <p>08:00 - 19:00</p>
+            </div>
+            <div class="contacts__item">
+              <img src="{% static 'images/contacts/phone.svg' %}" alt="телефон">
+              <a class="link" href="tel:89009999999">8 (900) 999-99-99</a>
+            </div>
+            <div class="contacts__item">
+              <img src="{% static 'images/contacts/mail.svg' %}" alt="почта">
+              <a class="link" href="mailto:mail@mail.ru">mail@mail.ru</a>
+            </div>
+            <div class="contacts__item">
+              <img src="{% static 'images/contacts/telegram.svg' %}" alt="телеграм">
+              <a class="link" href="t.me@telegram.com">t.me@telegram.com</a>
+            </div>
+            <div class="contacts__item">
+              <img src="{% static 'images/contacts/vk.svg' %}" alt="vk">
+              <a class="link" href="chinglish@vk.com">chinglish@vk.com</a>
+            </div>
+          </div>
+          <div class="contacts__card">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1919.41973699938!2d46.62400787747341!3d61.24407145631106!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4406e6c4530717f1%3A0x5ff19938044fe09b!2z0YPQuy4g0KLQvtC70YHRgtC-0LPQviwgMTAsINCa0L7RgtC70LDRgSwg0JDRgNGF0LDQvdCz0LXQu9GM0YHQutCw0Y8g0L7QsdC7LiwgMTYzOTYx!5e0!3m2!1sru!2sru!4v1692701456436!5m2!1sru!2sru"
+              width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+{% endblock content %}

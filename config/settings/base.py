@@ -41,10 +41,23 @@ LOCALE_PATHS = [str(ROOT_DIR / "locale")]
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
+# DATABASES = {
+#     "default": env.db("DATABASE_URL", default="mysql://root:debug@/chinglish"),
+# }
+
 DATABASES = {
-    "default": env.db("DATABASE_URL", default="mysql://root:debug@/chinglish"),
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': env("NAME_DB"),
+        'USER': env("USER_DB"),
+        'PASSWORD': env("PASSWORD_DB"),
+        'HOST': env("HOST_DB"),
+        'PORT': env("PORT_DB"),
+    }
 }
+
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
+
 # https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_AUTO_FIELD
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -78,6 +91,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "chinglish.users",
+    "chinglish.main",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
