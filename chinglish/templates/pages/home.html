@@ -1,6 +1,67 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n %}
+
+{% block css %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock css %}
+
+{% block javascript %}
+  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+  <script defer src="{% static 'js/home.js' %}"></script>
+{% endblock javascript %}
 {% block content %}
+  <body>
+  <header class="header">
+    <div class="container">
+      <div class="menu header__menu">
+        <a href="{% url 'main:home' %}" class="logo"><img class="logo__img" src="{% static 'images/menu/logo.svg' %}"
+                                                          alt="CHINGLISH"></a>
+        <ul class="menu__items">
+          <li><a href="{% url 'main:home' %}#services" class="link menu__item">Услуги</a></li>
+          <li><a href="{% url 'main:home' %}#team" class="link menu__item">Команда</a></li>
+          <li><a href="{% url 'main:home' %}#rewievs" class="link menu__item">Отзывы</a></li>
+          <li><a href="{% url 'main:home' %}#contacts" class="link menu__item">Контакты</a></li>
+          <li><a href="{% url 'main:home' %}#contacts" class="link menu__item">Как добраться?</a></li>
+        </ul>
+        <div class="menu__block">
+          {% if user.is_authenticated %}
+            <a href="{% url 'users:redirect' %}">
+              <div class="btn" style="display: flex;
+                                      align-items: center;
+                                      justify-content: flex-end;
+                                      padding: 0;
+                                      background: none;
+                                      border: none;
+                                      color: #000;">
+                <img src="{% static 'images/team/people-2.png' %}" alt="Ваше фото" style="height: 60px;
+                                                                                          object-fit: contain;
+                                                                                          width: 60px;
+                                                                                          border-radius: 50%;
+                                                                                          margin-right: 10px;
+                                                                                          border: 1px solid #8D001A;">Дарья
+              </div>
+            </a>
+          {% else %}
+            <div class="btn menu__btn auth">Войти</div>
+          {% endif %}
+          <div class="menu__media"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+
+      <div class="header__about about">
+        <h2 class="about__title">CHINGLISH</h2>
+        <p class="about__cta">Здесть нужно СТА - первое занятие free</p>
+        <p class="about__description">Таким образом сложившаяся структура организации требуют определения и уточнения
+          систем массового участия. С другой стороны постоянный количественный рост и сфера нашей активности в
+          значительной степени обуславливает создание соответствующий
+          условий активизации</p>
+        <a href="#form" class="btn">Записаться на бесплатное занятие</a>
+      </div>
+    </div>
+  </header>
   <main>
     <section class="services" id="services">
       <div class="container">
@@ -209,4 +270,57 @@
       </div>
     </section>
   </main>
+  <footer class="footer">
+    <div class="container">
+      <div class="menu">
+        <a href="#" class="logo link"><img class="logo__img" src="{% static 'images/menu/logo.svg' %}"
+                                           alt="CHINGLISH"></a>
+        <ul class="menu__items">
+          <li><a href="#" class="link menu__item">Услуги</a></li>
+          <li><a href="#" class="link menu__item">Контакты</a></li>
+          <li><a href="#" class="link menu__item">Отзывы</a></li>
+          <li><a href="#" class="link menu__item">Команда</a></li>
+          <li><a href="#" class="link menu__item">Как добраться?</a></li>
+        </ul>
+        <div class="btn menu__btn">Войти</div>
+      </div>
+    </div>
+  </footer>
+  {% block modal %}
+    <div class="modal modal-auth" id="modal-auth">
+      <div class="modal-content">
+        <a href="#" class="modal__close"><img src="{% static "images/close.svg" %}" alt="х"></a>
+        <h2 class="modal__title">Авторизация</h2>
+        <form action="{% url 'account_login' %}" class="modal__form" method="post">
+          <span class="form-error error-message"></span>
+          <input type="text" placeholder="Введите почту" name="login">
+          <span class="error-message"></span>
+          <input type="password" placeholder="Введите пароль" name="password">
+          <span class="error-message"></span>
+          <span>Зарегистрироваться</span>
+          <input type="submit" value="Войти">
+          {% csrf_token %}
+        </form>
+      </div>
+    </div>
+    <div class="modal modal-reg" id="modal-reg">
+      <div class="modal-content">
+        <a href="#" class="modal__close"><img src="{% static "images/close.svg" %}" alt="х"></a>
+        <h2 class="modal__title">Регистрация</h2>
+        <form action="{% url 'account_signup' %}" class="modal__form signup" method="post">
+          <span class="form-error error-message"></span>
+          <input type="email" placeholder="Введите почту" , name="email">
+          <span class="error-message"></span>
+          <input type="password" placeholder="Введите пароль" name="password1">
+          <span class="error-message"></span>
+          <input type="password" placeholder="Повторите пароль" name="password2">
+          <span class="error-message"></span>
+          <span>Авторизация</span>
+          <input type="submit" value="Зарегистрироваться">
+          {% csrf_token %}
+        </form>
+      </div>
+    </div>
+  {% endblock modal %}
+  </body>
 {% endblock content %}

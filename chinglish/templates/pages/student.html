@@ -1,2 +1,92 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{% block css %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/student.css' %}">
+{% endblock css %}
+
+{% block javascript %}
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js'></script>
+  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+  <script defer src="{% static 'js/home.js' %}"></script>
+  <script defer src="{% static 'js/calendar.js' %}"></script>
+{% endblock javascript %}
+
+{% block content %}
+  <body class="cabinet">
+  <div class="cabinet-data data">
+    <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
+    <h2 class="data__title">Личные данные</h2>
+    <div class="data__img"><img src="{{ student.photo.url }}{% static 'images/team/people-2.png' %}" alt=""><span>Изменить фото</span></div>
+    <div class="data__text">
+      <div class="data__info"><span>Класс</span><span>{{ student.classroom }}</span></div>
+      <div class="data__info"><span>Дата рождения</span><span>{{ student.birthday }}</span></div>
+      <div class="data__info"><span>E-mail</span><span>{{ user.email }}</span></div>
+      <div class="data__info"><span>Уровень</span><span>A1 (Начинающий)</span></div>
+      <div class="data__info"><span>Телефон</span><span>{{ user.phone }}</span></div>
+      <div class="data__info"><span>ФИО</span><span>{{ user.last_name }} {{ user.first_name }} {{ user.second_name }}</span></div>
+    </div>
+    <div class="btn btn-change">Редактировать данные</div>
+  </div>
+  <header class="header">
+    <div class="container">
+      <div class="menu header__menu">
+        <a href="{% url 'main:home' %}" class="logo"><img class="logo__img" src="{% static 'images/menu/logo.svg' %}" alt="CHINGLISH"></a>
+        <ul class="menu__items">
+          <li><a href="{% url 'main:home' %}#services" class="link menu__item">Услуги</a></li>
+          <li><a href="{% url 'main:home' %}#team" class="link menu__item">Команда</a></li>
+          <li><a href="{% url 'main:home' %}#rewievs" class="link menu__item">Отзывы</a></li>
+          <li><a href="{% url 'main:home' %}#contacts" class="link menu__item">Контакты</a></li>
+          <li><a href="{% url 'main:home' %}#contacts" class="link menu__item">Как добраться?</a></li>
+        </ul>
+        <div class="menu__block">
+          <a href="{% url 'users:redirect' %}">
+            <div class="btn"><img src="{% static 'images/team/people-2.png' %}" alt="Ваше фото"> Дарья</div>
+          </a>
+          <div class="menu__media"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="info">
+    <div class="container">
+      <div class="info__block">
+        <img src="{% static 'images/team/people-2.png' %}" alt="">
+        <div class="info__text">
+          <span>Светлана, 14 лет (Начинающие)</span>
+          <span>Eдиноразовый абонемент (оплата 10 октября)</span>
+        </div>
+      </div>
+      <div class="btn data-btn">Изменить личные данные</div>
+    </div>
+  </div>
+  <div class="schedule">
+    <div class="container" style="width: 70%; margin-top: 50px">
+      <div id='calendar'></div>
+    </div>
+  </div>
+  {% block modal %}
+    <div class="modal modal-data" id="modal-data">
+      <div class="modal-content">
+        <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
+        <h2 class="modal__title">Регистрация</h2>
+        <form action="#" class="modal__form">
+          <input type="text" placeholder="Введите ФИО">
+          <input type="text" placeholder="Введите ФИО родителя">
+          <input type="text" placeholder="Введите номер телефона">
+          <input type="text" placeholder="Введите дату рождения">
+          <input type="text" placeholder="Введите класс">
+          <input type="email" placeholder="Введите почту">
+          <input type="password" placeholder="Введите пароль">
+          <input type="password" placeholder="Повторите пароль">
+          <input type="submit" value="Зарегистрироваться">
+        </form>
+      </div>
+    </div>
+  {% endblock modal %}
+  </body>
+{% endblock content %}
+

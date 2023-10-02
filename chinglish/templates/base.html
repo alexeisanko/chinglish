@@ -3,104 +3,27 @@
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
   <meta charset="UTF-8">
-  <title>CHINGLISH</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600&family=Ribeye&family=Roboto:wght@400;500;700&display=swap"
     rel="stylesheet">
-  <title>{% block title %}chinglish{% endblock title %}</title>
+  <title>{% block title %}CHINGLISH{% endblock title %}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="CHINGLISH -- Language school for learning Chinese">
   <meta name="author" content="alexeisanko">
-
   <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}">
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-  <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
-  <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/base.css' %}">
   {% block css %}{% endblock css %}
-  <!-- Le javascript
-  ================================================== -->
-  {# Placed at the top of the document so pages load faster with defer #}
+
   <script src="{% static 'js/jquery-3.6.4.min.js' %}"></script>
-  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+  <script defer src="{% static 'js/modal_auth.js' %}"></script>
   <script defer src="{% static 'js/base.js' %}"></script>
   {% block javascript %}{% endblock javascript %}
 </head>
 
-<body>
+{% block content %}
+  {% block modal %}{% endblock modal %}
+{% endblock content %}
 
-<header class="header">
-  <div class="container">
-    <div class="menu header__menu">
-      <a href="#" class="logo"><img class="logo__img" src="{% static 'images/menu/logo.svg' %}" alt="CHINGLISH"></a>
-      <ul class="menu__items">
-        <li><a href="#services" class="link menu__item">Услуги</a></li>
-        <li><a href="#team" class="link menu__item">Команда</a></li>
-        <li><a href="#rewievs" class="link menu__item">Отзывы</a></li>
-        <li><a href="#contacts" class="link menu__item">Контакты</a></li>
-        <li><a href="#contacts" class="link menu__item">Как добраться?</a></li>
-      </ul>
-      <div class="menu__block">
-        <div class="btn menu__btn">Войти</div>
-        <div class="menu__media"><span></span><span></span><span></span></div>
-      </div>
-    </div>
-    <div class="header__about about">
-      <h2 class="about__title">CHINGLISH</h2>
-      <p class="about__cta">Здесть нужно СТА - первое занятие free</p>
-      <p class="about__description">Таким образом сложившаяся структура организации требуют определения и уточнения
-        систем массового участия. С другой стороны постоянный количественный рост и сфера нашей активности в
-        значительной степени обуславливает создание соответствующий
-        условий активизации</p>
-      <a href="#form" class="btn">Записаться на бесплатное занятие</a>
-    </div>
-  </div>
-</header>
-
-{% block content %}{% endblock content %}
-
-<footer class="footer">
-  <div class="container">
-    <div class="menu">
-      <a href="#" class="logo link"><img class="logo__img" src="{% static 'images/menu/logo.svg' %}"
-                                         alt="CHINGLISH"></a>
-      <ul class="menu__items">
-        <li><a href="#" class="link menu__item">Услуги</a></li>
-        <li><a href="#" class="link menu__item">Контакты</a></li>
-        <li><a href="#" class="link menu__item">Отзывы</a></li>
-        <li><a href="#" class="link menu__item">Команда</a></li>
-        <li><a href="#" class="link menu__item">Как добраться?</a></li>
-      </ul>
-      <div class="btn menu__btn">Войти</div>
-    </div>
-  </div>
-</footer>
-
-<div class="container">
-  {% if messages %}
-    {% for message in messages %}
-      <div class="alert alert-dismissible {% if message.tags %}alert-{{ message.tags }}{% endif %}">
-        {{ message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    {% endfor %}
-  {% endif %}
-</div> <!-- /container -->
-
-{% block modal %}{% endblock modal %}
-
-{% block inline_javascript %}
-  {% comment %}
-    Script tags with only code, no src (defer by default). To run
-    with a "defer" so that you run inline code:
-    <script>
-      window.addEventListener('DOMContentLoaded', () => {/* Run whatever you want */
-      });
-    </script>
-  {% endcomment %}
-{% endblock inline_javascript %}
-</body>
 </html>

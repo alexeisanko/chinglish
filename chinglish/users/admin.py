@@ -3,19 +3,18 @@ from django.contrib.auth import admin as auth_admin
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 
-from chinglish.users.forms import UserAdminChangeForm, UserAdminCreationForm
+# from chinglish.users.forms import UserAdminChangeForm, UserAdminCreationForm
 
 User = get_user_model()
 
 
 @admin.register(User)
-class UserAdmin(auth_admin.UserAdmin):
+class UserAdmin(admin.ModelAdmin):
 
-    form = UserAdminChangeForm
-    add_form = UserAdminCreationForm
+    # form = UserAdminChangeForm
+    # add_form = UserAdminCreationForm
     fieldsets = (
-        (None, {"fields": ("username", "password")}),
-        (_("Personal info"), {"fields": ("name", "email")}),
+        (None, {"fields": ("email", "password")}),
         (
             _("Permissions"),
             {
@@ -30,5 +29,5 @@ class UserAdmin(auth_admin.UserAdmin):
         ),
         (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
-    list_display = ["username", "name", "is_superuser"]
-    search_fields = ["name"]
+    list_display = ["email", "is_staff", "is_superuser"]
+    search_fields = ["email"]

@@ -110,16 +110,16 @@ section {
   align-items: center;
 }
 .card:nth-child(1) {
-  background: url("../images/services/img-3.jpg") no-repeat center;
+  background: url("../img/services/img-3.jpg") no-repeat center;
 }
 .card:nth-child(2) {
-  background: url("../images/services/img-4.jpg") no-repeat center;
+  background: url("../img/services/img-4.jpg") no-repeat center;
 }
 .card:nth-child(3) {
-  background: url("../images/services/img-5.jpg") no-repeat center;
+  background: url("../img/services/img-5.jpg") no-repeat center;
 }
 .card:last-child {
-  background: url("../images/services/img-6.jpg") no-repeat center;
+  background: url("../img/services/img-6.jpg") no-repeat center;
 }
 .card--nonactive {
   width: 100%;
@@ -170,7 +170,7 @@ section {
 }
 
 .owl-prev, .owl-next {
-  background: url("../images/arrow-right.svg") no-repeat center !important;
+  background: url("../img/arrow-right.svg") no-repeat center !important;
   width: 40px;
   height: 40px;
   border-radius: 50% !important;
@@ -182,7 +182,7 @@ section {
   top: calc(50% - 20px);
 }
 .owl-prev:hover, .owl-next:hover {
-  background: url("../images/arrow-right-red.svg") no-repeat center !important;
+  background: url("../img/arrow-right-red.svg") no-repeat center !important;
   background-color: none !important;
 }
 .owl-prev span, .owl-next span {
@@ -289,67 +289,10 @@ section {
   background: rgba(255, 255, 255, 0.3);
 }
 
-@keyframes shake {
-    0% {
-        transform: translate(1px, 1px) rotate(0deg);
-    }
-    33% {
-        transform: translate(-1px, -2px) rotate(-1deg);
-    }
-    66% {
-        transform: translate(-3px, 0px) rotate(1deg);
-    }
-    100% {
-        transform: translate(3px, 2px) rotate(0deg);
-    }
-    /* 100% {
-        transform: translate(1px, -1px) rotate(1deg);
-    }
-    50% {
-        transform: translate(-1px, 2px) rotate(-1deg);
-    }
-    60% {
-        transform: translate(-3px, 1px) rotate(0deg);
-    }
-    70% {
-        transform: translate(3px, 1px) rotate(-1deg);
-    }
-    80% {
-        transform: translate(-1px, -1px) rotate(1deg);
-    }
-    90% {
-        transform: translate(1px, 2px) rotate(0deg);
-    }
-    100% {
-        transform: translate(1px, -2px) rotate(-1deg);
-    } */
-}
-
-.modal__dialog--error {
-    animation: shake 0.15s;
-}
-
-.input--error {
-  border: 1px solid red !important;
-  position: relative;
-}
-
-.error-message {
-  display: none;
-}
-
-.span--error {
-  display: block;
-  color: red;
-  position: absolute;
-  top: -15px;
-  font-size: 12px;
-}
-
 .header {
   padding-top: 1.5rem;
   padding-bottom: 5rem;
-  background: url("../images/bg.jpg") no-repeat center;
+  background: url("../img/bg.jpg") no-repeat center;
   background-size: cover;
   position: relative;
 }
@@ -508,7 +451,7 @@ section {
   left: 0;
   padding: 40px;
   background-color: #8d001a;
-  height: 100vh;
+  height: 120vh;
   color: #fff;
   z-index: 10000;
   width: 450px;

@@ -2,12 +2,12 @@ from django.apps import AppConfig
 from django.utils.translation import gettext_lazy as _
 
 
-class MainConfig(AppConfig):
-    name = "chinglish.main"
-    verbose_name = _("Main")
+class StudentsConfig(AppConfig):
+    name = "chinglish.students"
+    verbose_name = _("Students")
 
     def ready(self):
         try:
-            import chinglish.main.signals  # noqa F401
+            import chinglish.students.signals  # noqa F401
         except ImportError:
             pass
