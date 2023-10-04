@@ -17,21 +17,22 @@
   <div class="cabinet-data data">
     <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
     <h2 class="data__title">Личные данные</h2>
-    {% if teacher.photo %}
-    <div class="data__img"><img src="{{ teacher.photo.url }}" alt=""><span>Изменить фото</span></div>
-    {% else %}
-    <div class="data__img"><img src="{% static 'images/team/people-2.png' %}" alt=""><span>Изменить фото</span></div>
-    {% endif %}
+    <div class="data__img"><img
+      src="{% if teacher.photo %}{{ teacher.photo.url }}{% else %}{% static 'images/team/people-2.png' %}{% endif %}"
+      alt=""><span>Изменить фото</span>
+    </div>
 
     <div class="data__text">
       <div class="data__info"><span>Дата рождения</span><span>{{ teacher.birthday|default:"Отсутствует" }}</span></div>
       <div class="data__info"><span>E-mail</span><span>{{ user.email|default:"Отсутствует" }}</span></div>
       <div class="data__info"><span>Телефон</span><span>{{ teacher.phone|default:"Отсутствует" }}</span></div>
       {% if teacher.last_name %}
-    <div class="data__info"><span>ФИО</span><span>{{ teacher.last_name|default:"" }} {{ teacher.first_name|default:"" }} {{ teacher.second_name|default:"" }}</span></div>
-    {% else %}
-    <div class="data__info"><span>ФИО</span><span>Отсутствует</span></div>
-    {% endif %}
+        <div class="data__info">
+          <span>ФИО</span><span>{{ teacher.last_name|default:"" }} {{ teacher.first_name|default:"" }}
+          {{ teacher.second_name|default:"" }}</span></div>
+      {% else %}
+        <div class="data__info"><span>ФИО</span><span>Отсутствует</span></div>
+      {% endif %}
 
     </div>
     <div class="btn btn-change-data">Редактировать данные</div>
@@ -40,7 +41,8 @@
   <header class="header">
     <div class="container">
       <div class="menu header__menu">
-        <a href="{% url 'main:home' %}" class="logo"><img class="logo__img" src="{% static 'images/menu/logo.svg' %}" alt="CHINGLISH"></a>
+        <a href="{% url 'main:home' %}" class="logo"><img class="logo__img" src="{% static 'images/menu/logo.svg' %}"
+                                                          alt="CHINGLISH"></a>
         <ul class="menu__items">
           <li><a href="{% url 'main:home' %}#services" class="link menu__item">Услуги</a></li>
           <li><a href="{% url 'main:home' %}#team" class="link menu__item">Команда</a></li>
@@ -50,11 +52,12 @@
         </ul>
         <div class="menu__block">
           <a href="{% url 'users:redirect' %}">
-              {% if teacher.photo %}
-              <div class="btn"><img src="{{ teacher.photo.url }}" alt="Ваше фото"> {{ teacher.first_name|default:"Учитель" }}</div>
-              {% else %}
+            {% if teacher.photo %}
+              <div class="btn"><img src="{{ teacher.photo.url }}" alt="Ваше фото">
+                {{ teacher.first_name|default:"Учитель" }}</div>
+            {% else %}
               <div class="btn"><img src="{% static 'images/team/people-2.png' %}" alt="Ваше фото">Учитель</div>
-              {% endif %}
+            {% endif %}
 
           </a>
           <div class="menu__media"><span></span><span></span><span></span></div>
@@ -65,7 +68,7 @@
   <div class="info">
     <div class="container">
       <div class="info__block">
-        <img src="{% static 'images/team/people-2.png' %}" alt="">
+        <img src="{% if teacher.photo %}{{ teacher.photo.url }}{% else %}{% static 'images/team/people-2.png' %}{% endif %}" alt="">
         <div class="info__text">
           <span>{{ teacher.first_name|default:"Учитель" }}, {{ info.age|default:""}}</span>
         </div>
@@ -84,20 +87,20 @@
         <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
         <h2 class="modal__title">Изменение данных</h2>
         <form action="#" class="modal__form">
-            <div style="display: flex">
-          <input type="text" placeholder="Введите ФИО" name="first_name">
-          <input type="text" placeholder="Введите ФИО" name="second_name">
-          <input type="text" placeholder="Введите ФИО" name="full_name">
+          <div style="display: flex">
+            <input type="text" placeholder="Введите ФИО" name="first_name">
+            <input type="text" placeholder="Введите ФИО" name="second_name">
+            <input type="text" placeholder="Введите ФИО" name="full_name">
           </div>
           <div style="display: flex">
-          <input type="text" placeholder="Введите номер телефона" name="phone">
-          <input type="text" placeholder="Введите дату рождения", name="birthday">
+            <input type="text" placeholder="Введите номер телефона" name="phone">
+            <input type="text" placeholder="Введите дату рождения" , name="birthday">
           </div>
           <input type="submit" value="Изменить данные">
         </form>
       </div>
     </div>
-        <div class="modal modal-data" id="modal-user_data">
+    <div class="modal modal-data" id="modal-user_data">
       <div class="modal-content">
         <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
         <h2 class="modal__title">Изменение пароля</h2>
@@ -105,6 +108,17 @@
           <input type="password" placeholder="Введите пароль" name=password>
           <input type="password" placeholder="Повторите пароль" name=password2>
           <input type="submit" value="Изменить пароль">
+        </form>
+      </div>
+    </div>
+    <div class="modal modal-data" id="modal-user_img">
+      <div class="modal-content">
+        <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
+        <h2 class="modal__title">Изменение фото</h2>
+        <form action="{% url 'teachers:profile' %}update-photo/{{ teacher.pk }}/" method="post" class="modal__form" enctype="multipart/form-data">
+          <input type="file"  name=photo>
+          <input type="submit" value="Изменить фото">
+          {% csrf_token %}
         </form>
       </div>
     </div>

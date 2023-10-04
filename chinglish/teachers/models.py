@@ -17,3 +17,6 @@ class Teacher(models.Model):
 
     def get_short_name(self):
         return self.first_name
+
+    def get_absolute_url(self):
+        return f'/teachers/'

@@ -4,6 +4,7 @@ from django.views.generic import TemplateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from chinglish.teachers.models import Teacher
+from chinglish.teachers.forms import PhotoTeacherForm
 
 
 class TeacherView(LoginRequiredMixin, TemplateView):
@@ -21,5 +22,10 @@ class TeacherView(LoginRequiredMixin, TemplateView):
 teacher_view = TeacherView.as_view()
 
 
-class UpdateTeacherView(UpdateView):
+class UpdatePhotoTeacherView(UpdateView):
     model = Teacher
+    form_class = PhotoTeacherForm
+    template_name = 'pages/teacher.html'
+    template_name_suffix = ''
+
+update_photo_teacher_view = UpdatePhotoTeacherView.as_view()
