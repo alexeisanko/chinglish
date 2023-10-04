@@ -13,7 +13,7 @@ class StudentView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         user = self.request.user
         if user:
-            context['student'] = Student.objects.get_or_create(user=user)
+            context['student'], created = Student.objects.get_or_create(user=user)
         return context
 
 
