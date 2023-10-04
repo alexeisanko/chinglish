@@ -5,9 +5,6 @@ from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import RedirectView, UpdateView
 
-from chinglish.students.models import Student
-from chinglish.teachers.models import Teacher
-
 User = get_user_model()
 
 
@@ -35,12 +32,9 @@ class UserRedirectView(LoginRequiredMixin, RedirectView):
     permanent = False
 
     def get_redirect_url(self):
-        student = Student.objects.filter(user=self.request.user)
-        teacher = Teacher.objects.filter(user=self.request.user)
-        if teacher:
+
+        if self.request.user.is_staff:
             return reverse('teachers:profile')
-        elif student:
-            return reverse('students:profile')
         else:
             return reverse('students:profile')
 

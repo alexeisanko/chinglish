@@ -9,7 +9,7 @@ class Teacher(models.Model):
     phone = models.CharField(_('number phone'), max_length=15, null=True, default=None)
     birthday = models.DateField(_('birthday'), null=True, default=None)
     user = models.OneToOneField('users.User', on_delete=models.PROTECT, null=True, default=None)
-    photo = models.ImageField(_('photo student'), upload_to='student', null=True, default=None)
+    photo = models.ImageField(_('photo teacher'), upload_to='teacher', null=True, default=None)
 
     def get_full_name(self):
         full_name = f'{self.last_name} {self.first_name} {self.second_name}'

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% block title %}Ученик{% endblock title %}
 {% block css %}
   <link rel="stylesheet" href="{% static 'css/student.css' %}">
 {% endblock css %}
@@ -17,7 +17,7 @@
   <div class="cabinet-data data">
     <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
     <h2 class="data__title">Личные данные</h2>
-    {% if student.photo.url %}
+    {% if student.photo %}
     <div class="data__img"><img src="{{ student.photo.url }}" alt=""><span>Изменить фото</span></div>
     {% else %}
     <div class="data__img"><img src="{% static 'images/team/people-2.png' %}" alt=""><span>Изменить фото</span></div>
@@ -51,7 +51,7 @@
         </ul>
         <div class="menu__block">
           <a href="{% url 'users:redirect' %}">
-              {% if student.photo.url %}
+              {% if student.photo %}
               <div class="btn"><img src="{{ student.photo.url }}" alt="Ваше фото"> {{ student.first_name|default:"Ученик" }}</div>
               {% else %}
               <div class="btn"><img src="{% static 'images/team/people-2.png' %}" alt="Ваше фото">Ученик</div>

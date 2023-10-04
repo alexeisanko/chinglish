@@ -1,6 +1,6 @@
 from typing import Any, Dict
 
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from chinglish.teachers.models import Teacher
@@ -19,3 +19,7 @@ class TeacherView(LoginRequiredMixin, TemplateView):
 
 
 teacher_view = TeacherView.as_view()
+
+
+class UpdateTeacherView(UpdateView):
+    model = Teacher

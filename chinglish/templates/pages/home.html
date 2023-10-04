@@ -38,17 +38,30 @@
                                       color: #000;">
                   
                 <img src=
-                    {% if student.photo.url %}
-                    "{{ student.photo.url }}"
+                    {% if user.is_staff %}
+                        {% if teacher.photo %}
+                            "{{ teacher.photo.url }}"
+                        {% else %}
+                            "{% static 'images/team/people-2.png' %}"
+                        {% endif %}
                     {% else %}
-                    "{% static 'images/team/people-2.png' %}"
+                        {% if student.photo %}
+                            "{{ student.photo.url }}"
+                        {% else %}
+                            "{% static 'images/team/people-2.png' %}"
+                        {% endif %}
                     {% endif %}
                     alt="Ваше фото" style="height: 60px;
                                                                                               object-fit: contain;
                                                                                               width: 60px;
                                                                                               border-radius: 50%;
                                                                                               margin-right: 10px;
-                                                                                              border: 1px solid #8D001A;">{{ student.first_name|default:"Ученик" }}
+                                                                                              border: 1px solid #8D001A;"> {% if user.is_staff %}
+                                                                                              {{ teacher.first_name|default:"Учитель" }}
+                                                                                              {% else %}
+                                                                                              {{ student.first_name|default:"Ученик" }}
+                                                                                              {% endif %}
+                                                                                                                              
               </div>
             </a>
           {% else %}
@@ -299,15 +312,15 @@
                         <div class="btn">Записаться</div>
                         <div class="subscription__price">
                             <div class="subscription__cost">
-                                <img src="assets/img/check.svg" alt="">
+                                <img src="{% static 'images/check.svg' %}" alt="">
                                 <p>4 занятия - 2800 руб</p>
                             </div>
                             <div class="subscription__cost">
-                                <img src="assets/img/check.svg" alt="">
+                                <img src="{% static 'images/check.svg' %}" alt="">
                                 <p>8 занятий - 5600 руб</p>
                             </div>
                             <div class="subscription__cost">
-                                <img src="assets/img/check.svg" alt="">
+                                <img src="{% static 'images/check.svg' %}" alt="">
                                 <p>12 занятий - 8400 руб</p>
                             </div>
                         </div>
@@ -319,15 +332,15 @@
                         <div class="btn">Записаться</div>
                         <div class="subscription__price">
                             <div class="subscription__cost">
-                                <img src="assets/img/check.svg" alt="">
+                                <img src="{% static 'images/check.svg' %}" alt="">
                                 <p>12 занятий - 7560 / <span>8400 руб</span></p>
                             </div>
                             <div class="subscription__cost">
-                                <img src="assets/img/check.svg" alt="">
+                                <img src="{% static 'images/check.svg' %}" alt="">
                                 <p>24 занятия - 7560 / <span>8400 руб</span></p>
                             </div>
                             <div class="subscription__cost">
-                                <img src="assets/img/check.svg" alt="">
+                                <img src="{% static 'images/check.svg' %}" alt="">
                                 <p>36 занятий - 7560 / <span>8400 руб</span></p>
                             </div>
                         </div>
@@ -339,15 +352,15 @@
                         <div class="btn">Записаться</div>
                         <div class="subscription__price">
                             <div class="subscription__cost">
-                                <img src="assets/img/check.svg" alt="">
+                                <img src="{% static 'images/check.svg' %}" alt="">
                                 <p>12 занятий - 7560 / <span>8400 руб</span></p>
                             </div>
                             <div class="subscription__cost">
-                                <img src="assets/img/check.svg" alt="">
+                                <img src="{% static 'images/check.svg' %}" alt="">
                                 <p>12 занятий - 7560 / <span>8400 руб</span></p>
                             </div>
                             <div class="subscription__cost">
-                                <img src="assets/img/check.svg" alt="">
+                                <img src="{% static 'images/check.svg' %}" alt="">
                                 <p>12 занятий - 7560 / <span>8400 руб</span></p>
                             </div>
                         </div>
