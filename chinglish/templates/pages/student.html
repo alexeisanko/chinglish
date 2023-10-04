@@ -2,17 +2,14 @@
 {% load static %}
 
 {% block css %}
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-  <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
-  <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/student.css' %}">
 {% endblock css %}
 
 {% block javascript %}
   <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js'></script>
-  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
-  <script defer src="{% static 'js/home.js' %}"></script>
   <script defer src="{% static 'js/calendar.js' %}"></script>
+  <script defer src="{% static 'js/student.js' %}"></script>
+  
 {% endblock javascript %}
 
 {% block content %}
@@ -20,14 +17,24 @@
   <div class="cabinet-data data">
     <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
     <h2 class="data__title">Личные данные</h2>
-    <div class="data__img"><img src="{{ student.photo.url }}{% static 'images/team/people-2.png' %}" alt=""><span>Изменить фото</span></div>
+    {% if student.photo.url %}
+    <div class="data__img"><img src="{{ student.photo.url }}" alt=""><span>Изменить фото</span></div>
+    {% else %}
+    <div class="data__img"><img src="{% static 'images/team/people-2.png' %}" alt=""><span>Изменить фото</span></div>
+    {% endif %}
+    
     <div class="data__text">
-      <div class="data__info"><span>Класс</span><span>{{ student.classroom }}</span></div>
-      <div class="data__info"><span>Дата рождения</span><span>{{ student.birthday }}</span></div>
-      <div class="data__info"><span>E-mail</span><span>{{ user.email }}</span></div>
-      <div class="data__info"><span>Уровень</span><span>A1 (Начинающий)</span></div>
-      <div class="data__info"><span>Телефон</span><span>{{ user.phone }}</span></div>
-      <div class="data__info"><span>ФИО</span><span>{{ user.last_name }} {{ user.first_name }} {{ user.second_name }}</span></div>
+      <div class="data__info"><span>Класс</span><span>{{ student.classroom|default:"Отсутствует" }}</span></div>
+      <div class="data__info"><span>Дата рождения</span><span>{{ student.birthday|default:"Отсутствует" }}</span></div>
+      <div class="data__info"><span>E-mail</span><span>{{ user.email|default:"Отсутствует" }}</span></div>
+      <div class="data__info"><span>Уровень</span><span>Отсутствует</span></div>
+      <div class="data__info"><span>Телефон</span><span>{{ student.phone|default:"Отсутствует" }}</span></div>
+      {% if user.last_name %}
+    <div class="data__info"><span>ФИО</span><span>{{ student.last_name }} {{ student.first_name }} {{ student.second_name }}</span></div>
+    {% else %}
+    <div class="data__info"><span>ФИО</span><span>Отсутствует</span></div>
+    {% endif %}
+      
     </div>
     <div class="btn btn-change">Редактировать данные</div>
   </div>
@@ -44,7 +51,12 @@
         </ul>
         <div class="menu__block">
           <a href="{% url 'users:redirect' %}">
-            <div class="btn"><img src="{% static 'images/team/people-2.png' %}" alt="Ваше фото"> Дарья</div>
+              {% if student.photo.url %}
+              <div class="btn"><img src="{{ student.photo.url }}" alt="Ваше фото"> {{ student.first_name|default:"Ученик" }}</div>
+              {% else %}
+              <div class="btn"><img src="{% static 'images/team/people-2.png' %}" alt="Ваше фото">Ученик</div>
+              {% endif %}
+            
           </a>
           <div class="menu__media"><span></span><span></span><span></span></div>
         </div>
@@ -56,7 +68,7 @@
       <div class="info__block">
         <img src="{% static 'images/team/people-2.png' %}" alt="">
         <div class="info__text">
-          <span>Светлана, 14 лет (Начинающие)</span>
+          <span>{{ student.first_name|default:"Ученик" }}, {{ info.age|default:""}} {{ info.level|default:""}}</span>
           <span>Eдиноразовый абонемент (оплата 10 октября)</span>
         </div>
       </div>
