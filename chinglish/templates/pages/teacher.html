@@ -8,6 +8,7 @@
 {% block javascript %}
   <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js'></script>
   <script defer src="{% static 'js/calendar.js' %}"></script>
+  <script defer src="{% static 'js/modal_user.js' %}"></script>
   <script defer src="{% static 'js/teacher.js' %}"></script>
 
 {% endblock javascript %}
@@ -86,17 +87,28 @@
       <div class="modal-content">
         <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
         <h2 class="modal__title">Изменение данных</h2>
-        <form action="#" class="modal__form">
+        <form action="{% url 'teachers:profile' %}update-info/{{ teacher.pk }}/" method="post" class="modal__form">
           <div style="display: flex">
-            <input type="text" placeholder="Введите ФИО" name="first_name">
-            <input type="text" placeholder="Введите ФИО" name="second_name">
-            <input type="text" placeholder="Введите ФИО" name="full_name">
+              <span class="form-error error-message"></span>
+            <input type="text" placeholder="{{ teacher.last_name|default:"Фамилия" }}" name="last_name" value="{{ teacher.last_name}}">
+            <span class="error-message"></span>
+            <input type="text" placeholder="{{ teacher.first_name|default:"Имя" }}" name="first_name" value="{{ teacher.first_name}}">
+            <span class="error-message"></span>
+            {% if teacher.second_name %}
+            <input type="text" placeholder="Отчество" name="second_name"> 
+            {% else %}
+            <input type="text" placeholder="{{ teacher.second_name }}" name="second_name" value="{{ teacher.second_name }}"> 
+            {% endif %}
+            <span class="error-message"></span>
           </div>
           <div style="display: flex">
-            <input type="text" placeholder="Введите номер телефона" name="phone">
-            <input type="text" placeholder="Введите дату рождения" , name="birthday">
+            <input type="text" placeholder="{{ teacher.phone|default:"Телефон" }}" name="phone" class=mask-phone value="{{ teacher.phone}}">
+            <span class="error-message"></span>
+            <input type="date" placeholder="{{ teacher.birthday|default:"День рождения" }}" name="birthday" value="{{ teacher.birthday}}">
+            <span class="error-message"></span>
           </div>
           <input type="submit" value="Изменить данные">
+          {% csrf_token %}
         </form>
       </div>
     </div>
@@ -105,9 +117,13 @@
         <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
         <h2 class="modal__title">Изменение пароля</h2>
         <form action="#" class="modal__form">
+            <span class="form-error error-message"></span>
           <input type="password" placeholder="Введите пароль" name=password>
+          <span class="error-message"></span>
           <input type="password" placeholder="Повторите пароль" name=password2>
+          <span class="error-message"></span>
           <input type="submit" value="Изменить пароль">
+          {% csrf_token %}
         </form>
       </div>
     </div>
