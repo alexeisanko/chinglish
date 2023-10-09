@@ -1,105 +1,70 @@
-{% extends 'base.html' %}
+{% extends 'users/user_base.html' %}
 {% load static %}
 {% block title %}Ученик{% endblock title %}
-{% block css %}
+{% block user_css %}
   <link rel="stylesheet" href="{% static 'css/student.css' %}">
-{% endblock css %}
+{% endblock user_css %}
 
-{% block javascript %}
-  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js'></script>
-  <script defer src="{% static 'js/calendar.js' %}"></script>
-    <script defer src="{% static 'js/modal_user.js' %}"></script>
+{% block user_javascript %}
   <script defer src="{% static 'js/student.js' %}"></script>
-  
-{% endblock javascript %}
+{% endblock user_javascript %}
 
-{% block content %}
-  <body class="cabinet">
+{% block cabinet-data %}
   <div class="cabinet-data data">
     <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
     <h2 class="data__title">Личные данные</h2>
-    {% if student.photo %}
-    <div class="data__img"><img src="{{ student.photo.url }}" alt=""><span>Изменить фото</span></div>
-    {% else %}
-    <div class="data__img"><img src="{% static 'images/team/people-2.png' %}" alt=""><span>Изменить фото</span></div>
-    {% endif %}
-    
+    <div class="data__img"><img
+      src="{% if user_info.photo %}{{ user_info.photo.url }}{% else %}{% static 'images/noname_user.png' %}{% endif %}"
+      alt=""><span>Изменить фото</span>
+    </div>
+
     <div class="data__text">
-      <div class="data__info"><span>Класс</span><span>{{ student.classroom|default:"Отсутствует" }}</span></div>
-      <div class="data__info"><span>Дата рождения</span><span>{{ student.birthday|default:"Отсутствует" }}</span></div>
+      <div class="data__info"><span>Класс</span><span>{{ user_info.classroom|default:"Отсутствует" }}</span></div>
+      <div class="data__info"><span>Дата рождения</span><span>{{ user_info.birthday|default:"Отсутствует" }}</span>
+      </div>
       <div class="data__info"><span>E-mail</span><span>{{ user.email|default:"Отсутствует" }}</span></div>
       <div class="data__info"><span>Уровень</span><span>Отсутствует</span></div>
-      <div class="data__info"><span>Телефон</span><span>{{ student.phone|default:"Отсутствует" }}</span></div>
+      <div class="data__info"><span>Телефон</span><span>{{ user_info.phone|default:"Отсутствует" }}</span></div>
       {% if user.last_name %}
-    <div class="data__info"><span>ФИО</span><span>{{ student.last_name }} {{ student.first_name }} {{ student.second_name }}</span></div>
-    {% else %}
-    <div class="data__info"><span>ФИО</span><span>Отсутствует</span></div>
-    {% endif %}
-      
+        <div class="data__info">
+          <span>ФИО</span><span>{{ user_info.last_name }} {{ user_info.first_name }} {{ user_info.second_name }}</span>
+        </div>
+      {% else %}
+        <div class="data__info"><span>ФИО</span><span>Отсутствует</span></div>
+      {% endif %}
+
     </div>
     <div class="btn btn-change">Редактировать данные</div>
   </div>
-  <header class="header">
-    <div class="container">
-      <div class="menu header__menu">
-        <a href="{% url 'main:home' %}" class="logo"><img class="logo__img" src="{% static 'images/menu/logo.svg' %}" alt="CHINGLISH"></a>
-        <ul class="menu__items">
-          <li><a href="{% url 'main:home' %}#services" class="link menu__item">Услуги</a></li>
-          <li><a href="{% url 'main:home' %}#team" class="link menu__item">Команда</a></li>
-          <li><a href="{% url 'main:home' %}#rewievs" class="link menu__item">Отзывы</a></li>
-          <li><a href="{% url 'main:home' %}#contacts" class="link menu__item">Контакты</a></li>
-          <li><a href="{% url 'main:home' %}#contacts" class="link menu__item">Как добраться?</a></li>
-        </ul>
-        <div class="menu__block">
-          <a href="{% url 'users:redirect' %}">
-              {% if student.photo %}
-              <div class="btn"><img src="{{ student.photo.url }}" alt="Ваше фото"> {{ student.first_name|default:"Ученик" }}</div>
-              {% else %}
-              <div class="btn"><img src="{% static 'images/team/people-2.png' %}" alt="Ваше фото">Ученик</div>
-              {% endif %}
-            
-          </a>
-          <div class="menu__media"><span></span><span></span><span></span></div>
-        </div>
-      </div>
-    </div>
-  </header>
-  <div class="info">
-    <div class="container">
-      <div class="info__block">
-        <img src="{% static 'images/team/people-2.png' %}" alt="">
-        <div class="info__text">
-          <span>{{ student.first_name|default:"Ученик" }}, {{ info.age|default:""}} {{ info.level|default:""}}</span>
-          <span>Eдиноразовый абонемент (оплата 10 октября)</span>
-        </div>
-      </div>
-      <div class="btn data-btn">Изменить личные данные</div>
-    </div>
-  </div>
-  <div class="schedule">
-    <div class="container" style="width: 70%; margin-top: 50px">
-      <div id='calendar'></div>
-    </div>
-  </div>
-  {% block modal %}
-    <div class="modal modal-data" id="modal-data">
-      <div class="modal-content">
-        <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
-        <h2 class="modal__title">Регистрация</h2>
-        <form action="#" class="modal__form">
-          <input type="text" placeholder="Введите ФИО">
-          <input type="text" placeholder="Введите ФИО родителя">
-          <input type="text" placeholder="Введите номер телефона">
-          <input type="text" placeholder="Введите дату рождения">
-          <input type="text" placeholder="Введите класс">
-          <input type="email" placeholder="Введите почту">
-          <input type="password" placeholder="Введите пароль">
-          <input type="password" placeholder="Повторите пароль">
-          <input type="submit" value="Зарегистрироваться">
-        </form>
-      </div>
-    </div>
-  {% endblock modal %}
-  </body>
-{% endblock content %}
+{% endblock cabinet-data %}
 
+{% block add_custom_modal %}
+  <div class="modal modal-data" id="modal-data">
+    <div class="modal-content">
+      <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
+      <h2 class="modal__title">Изменение данных</h2>
+      <form action="{% url 'students:profile' %}update-info/{{ user_info.pk }}/" method="post" class="modal__form">
+
+        <span class="form-error error-message"></span>
+        <input type="text" placeholder="{{ user_info.last_name|default:"Фамилия" }}" name="last_name"
+               value="{{ user_info.last_name }}">
+        <span class="error-message"></span>
+        <input type="text" placeholder="{{ user_info.first_name|default:"Имя" }}" name="first_name"
+               value="{{ user_info.first_name }}">
+        <span class="error-message"></span>
+        <input type="text" placeholder="Отчество" name="second_name" {% if user_info.second_name != 'None' %}
+               value="{{ user_info.second_name }}" {% endif %}>
+        <span class="error-message"></span>
+        <input type="text" placeholder="{{ user_info.phone|default:"Телефон" }}" name="phone" class=mask-phone
+               value="{{ user_info.phone }}">
+        <span class="error-message"></span>
+        <input type="date" placeholder="{{ user_info.birthday|default:"День рождения" }}" name="birthday"
+               value="{{ user_info.birthday|date:"Y-m-d"}}">
+        <span class="error-message"></span>
+
+        <input type="submit" value="Изменить данные">
+        {% csrf_token %}
+      </form>
+    </div>
+  </div>
+{% endblock add_custom_modal %}

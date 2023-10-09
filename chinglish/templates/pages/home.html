@@ -36,32 +36,32 @@
                                       background: none;
                                       border: none;
                                       color: #000;">
-                  
+
                 <img src=
-                    {% if user.is_staff %}
-                        {% if teacher.photo %}
-                            "{{ teacher.photo.url }}"
-                        {% else %}
-                            "{% static 'images/team/people-2.png' %}"
-                        {% endif %}
-                    {% else %}
-                        {% if student.photo %}
-                            "{{ student.photo.url }}"
-                        {% else %}
-                            "{% static 'images/team/people-2.png' %}"
-                        {% endif %}
-                    {% endif %}
-                    alt="Ваше фото" style="height: 60px;
-                                                                                              object-fit: contain;
-                                                                                              width: 60px;
-                                                                                              border-radius: 50%;
-                                                                                              margin-right: 10px;
-                                                                                              border: 1px solid #8D001A;"> {% if user.is_staff %}
-                                                                                              {{ teacher.first_name|default:"Учитель" }}
-                                                                                              {% else %}
-                                                                                              {{ student.first_name|default:"Ученик" }}
-                                                                                              {% endif %}
-                                                                                                                              
+                       {% if user.is_staff %}
+                         {% if teacher.photo %}
+                           "{{ teacher.photo.url }}"
+                         {% else %}
+                           "{% static 'images/team/people-2.png' %}"
+                         {% endif %}
+                       {% else %}
+                         {% if student.photo %}
+                           "{{ student.photo.url }}"
+                         {% else %}
+                           "{% static 'images/team/people-2.png' %}"
+                         {% endif %}
+                       {% endif %}
+                alt="Ваше фото" style="height: 60px;
+                object-fit: contain;
+                width: 60px;
+                border-radius: 50%;
+                margin-right: 10px;
+                border: 1px solid #8D001A;"> {% if user.is_staff %}
+                {{ teacher.first_name|default:"Учитель" }}
+              {% else %}
+                {{ student.first_name|default:"Ученик" }}
+              {% endif %}
+
               </div>
             </a>
           {% else %}
@@ -228,146 +228,146 @@
         </div>
       </div>
     </section>
-      <section class="subscription">
-            <div class="container">
-                <div class="title">
-                    <p class="title__small">Абонементы</p>
-                    <p class="title__big">Subscription</p>
-                </div>
-                <style>
-                    .subscription__content {
-                        display: flex;
-                        align-items: flex-start;
-                        justify-content: space-between;
-                        flex-wrap: wrap;
-                        margin-top: 60px;
-                    }
-                    
-                    .subscription__item {
-                        padding: 10px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        flex-direction: column;
-                    }
-                    
-                    .subscription__term {
-                        color: #8D001A;
-                        text-align: center;
-                        font-size: 18px;
-                        font-weight: 600;
-                        line-height: 28px;
-                        margin-bottom: 20px;
-                    }
-                    
-                    .subscription__sale {
-                        text-align: center;
-                        font-size: 48px;
-                        font-weight: 600;
-                        line-height: 60px;
-                    }
-                    
-                    .subscription__mark {
-                        color: #606571;
-                        text-align: center;
-                        font-size: 16px;
-                        line-height: 26px;
-                        margin-bottom: 20px;
-                    }
-                    
-                    .subscription .btn {
-                        width: 90%;
-                        max-width: 100%;
-                        text-align: center;
-                    }
-                    
-                    .subscription__price {
-                        margin-top: 30px;
-                    }
-                    
-                    .subscription__cost {
-                        display: flex;
-                        align-items: center;
-                        justify-content: flex-start;
-                        margin-bottom: 10px;
-                    }
-                    
-                    .subscription__cost p {
-                        margin-left: 8px;
-                        color: #0F172A;
-                        font-size: 16px;
-                        font-weight: 400;
-                        line-height: 26px;
-                    }
-                    
-                    .subscription__cost span {
-                        text-decoration: line-through;
-                    }
-                </style>
-                <div class="subscription__content">
-                    <div class="subscription__item">
-                        <div class="subscription__term">На 1 месяц*</div>
-                        <div class="subscription__sale">-0%</div>
-                        <div class="subscription__mark">Оплата до 10 числа каждого месяца</div>
-                        <div class="btn">Записаться</div>
-                        <div class="subscription__price">
-                            <div class="subscription__cost">
-                                <img src="{% static 'images/check.svg' %}" alt="">
-                                <p>4 занятия - 2800 руб</p>
-                            </div>
-                            <div class="subscription__cost">
-                                <img src="{% static 'images/check.svg' %}" alt="">
-                                <p>8 занятий - 5600 руб</p>
-                            </div>
-                            <div class="subscription__cost">
-                                <img src="{% static 'images/check.svg' %}" alt="">
-                                <p>12 занятий - 8400 руб</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="subscription__item subscription__item--active">
-                        <div class="subscription__term">На 1 месяц*</div>
-                        <div class="subscription__sale">-10%</div>
-                        <div class="subscription__mark">Оплата до 10 числа каждого месяца</div>
-                        <div class="btn">Записаться</div>
-                        <div class="subscription__price">
-                            <div class="subscription__cost">
-                                <img src="{% static 'images/check.svg' %}" alt="">
-                                <p>12 занятий - 7560 / <span>8400 руб</span></p>
-                            </div>
-                            <div class="subscription__cost">
-                                <img src="{% static 'images/check.svg' %}" alt="">
-                                <p>24 занятия - 7560 / <span>8400 руб</span></p>
-                            </div>
-                            <div class="subscription__cost">
-                                <img src="{% static 'images/check.svg' %}" alt="">
-                                <p>36 занятий - 7560 / <span>8400 руб</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="subscription__item">
-                        <div class="subscription__term">На 3 месяца*</div>
-                        <div class="subscription__sale">-15%</div>
-                        <div class="subscription__mark">Оплата до 10 числа каждого месяца</div>
-                        <div class="btn">Записаться</div>
-                        <div class="subscription__price">
-                            <div class="subscription__cost">
-                                <img src="{% static 'images/check.svg' %}" alt="">
-                                <p>12 занятий - 7560 / <span>8400 руб</span></p>
-                            </div>
-                            <div class="subscription__cost">
-                                <img src="{% static 'images/check.svg' %}" alt="">
-                                <p>12 занятий - 7560 / <span>8400 руб</span></p>
-                            </div>
-                            <div class="subscription__cost">
-                                <img src="{% static 'images/check.svg' %}" alt="">
-                                <p>12 занятий - 7560 / <span>8400 руб</span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <section class="subscription">
+      <div class="container">
+        <div class="title">
+          <p class="title__small">Абонементы</p>
+          <p class="title__big">Subscription</p>
+        </div>
+        <style>
+          .subscription__content {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 60px;
+          }
+
+          .subscription__item {
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+          }
+
+          .subscription__term {
+            color: #8D001A;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 28px;
+            margin-bottom: 20px;
+          }
+
+          .subscription__sale {
+            text-align: center;
+            font-size: 48px;
+            font-weight: 600;
+            line-height: 60px;
+          }
+
+          .subscription__mark {
+            color: #606571;
+            text-align: center;
+            font-size: 16px;
+            line-height: 26px;
+            margin-bottom: 20px;
+          }
+
+          .subscription .btn {
+            width: 90%;
+            max-width: 100%;
+            text-align: center;
+          }
+
+          .subscription__price {
+            margin-top: 30px;
+          }
+
+          .subscription__cost {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 10px;
+          }
+
+          .subscription__cost p {
+            margin-left: 8px;
+            color: #0F172A;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 26px;
+          }
+
+          .subscription__cost span {
+            text-decoration: line-through;
+          }
+        </style>
+        <div class="subscription__content">
+          <div class="subscription__item">
+            <div class="subscription__term">На 1 месяц*</div>
+            <div class="subscription__sale">-0%</div>
+            <div class="subscription__mark">Оплата до 10 числа каждого месяца</div>
+            <div class="btn">Записаться</div>
+            <div class="subscription__price">
+              <div class="subscription__cost">
+                <img src="{% static 'images/check.svg' %}" alt="">
+                <p>4 занятия - 2800 руб</p>
+              </div>
+              <div class="subscription__cost">
+                <img src="{% static 'images/check.svg' %}" alt="">
+                <p>8 занятий - 5600 руб</p>
+              </div>
+              <div class="subscription__cost">
+                <img src="{% static 'images/check.svg' %}" alt="">
+                <p>12 занятий - 8400 руб</p>
+              </div>
             </div>
-        </section>
+          </div>
+          <div class="subscription__item subscription__item--active">
+            <div class="subscription__term">На 1 месяц*</div>
+            <div class="subscription__sale">-10%</div>
+            <div class="subscription__mark">Оплата до 10 числа каждого месяца</div>
+            <div class="btn">Записаться</div>
+            <div class="subscription__price">
+              <div class="subscription__cost">
+                <img src="{% static 'images/check.svg' %}" alt="">
+                <p>12 занятий - 7560 / <span>8400 руб</span></p>
+              </div>
+              <div class="subscription__cost">
+                <img src="{% static 'images/check.svg' %}" alt="">
+                <p>24 занятия - 7560 / <span>8400 руб</span></p>
+              </div>
+              <div class="subscription__cost">
+                <img src="{% static 'images/check.svg' %}" alt="">
+                <p>36 занятий - 7560 / <span>8400 руб</span></p>
+              </div>
+            </div>
+          </div>
+          <div class="subscription__item">
+            <div class="subscription__term">На 3 месяца*</div>
+            <div class="subscription__sale">-15%</div>
+            <div class="subscription__mark">Оплата до 10 числа каждого месяца</div>
+            <div class="btn">Записаться</div>
+            <div class="subscription__price">
+              <div class="subscription__cost">
+                <img src="{% static 'images/check.svg' %}" alt="">
+                <p>12 занятий - 7560 / <span>8400 руб</span></p>
+              </div>
+              <div class="subscription__cost">
+                <img src="{% static 'images/check.svg' %}" alt="">
+                <p>12 занятий - 7560 / <span>8400 руб</span></p>
+              </div>
+              <div class="subscription__cost">
+                <img src="{% static 'images/check.svg' %}" alt="">
+                <p>12 занятий - 7560 / <span>8400 руб</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     <section class="form" id="form">
       <div class="container">
         <div class="title">
@@ -375,14 +375,18 @@
           <p class="title__big">Form for lesson</p>
         </div>
         <form action="#" class="form-lesson">
-          <input type="text" class="input" placeholder="Выберите вид занятия">
-          <input type="text" class="input" placeholder="Выберите преподавателя">
-          <input type="text" class="input" placeholder="Выберите дату">
-          <input type="text" class="input" placeholder="Выберите время">
-          <input type="text" class="input" placeholder="Введите ФИО">
-          <input type="text" class="input" placeholder="Введите номер телефона">
-          <input type="text" class="input" placeholder="Введите возраст">
-          <input type="text" class="input" placeholder="Введите класс">
+          {% for field in form %}
+            {{ field }}
+            {{ field.errors }}
+          {% endfor %}
+{#          <input type="text" class="input" placeholder="Выберите вид занятия">#}
+{#          <input type="text" class="input" placeholder="Выберите преподавателя">#}
+{#          <input type="text" class="input" placeholder="Выберите дату">#}
+{#          <input type="text" class="input" placeholder="Выберите время">#}
+{#          <input type="text" class="input" placeholder="Введите ФИО">#}
+{#          <input type="text" class="input" placeholder="Введите номер телефона">#}
+{#          <input type="text" class="input" placeholder="Введите возраст">#}
+{#          <input type="text" class="input" placeholder="Введите класс">#}
           <input type="submit" class="btn" value="Записаться на бесплатное занятие">
         </form>
       </div>

@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    
+
     $('.modal__close').click(function () {
         $('.modal-data').css('display', 'none');
         $('.modal-user-data').css('display', 'none');
@@ -28,7 +28,7 @@ $(document).ready(function () {
         $('#modal-user_data').css('display', 'none');
         $('.data').css('display', 'none');
     });
-    
+
     $('#modal-data').on("submit", "form", function () {
         DeleteErrors()
         let $form = $(this);
@@ -40,7 +40,7 @@ $(document).ready(function () {
             success: function (data) {
                 console.log(data)
                 DeleteErrors()
-                location.reload
+                location.reload()
             },
             error: function (data) {
                 console.log(data)
@@ -62,17 +62,6 @@ $(document).ready(function () {
         })
         return false
     })
-
-    function GetErrorsField(fields) {
-        let errors = {}
-        for (let field in fields) {
-            if (fields[field]['errors'].length !== 0) {
-
-                errors[field] = fields[field]['errors'][0]
-            }
-        }
-        return errors
-    }
 
     function DeleteErrors(close_modal = false) {
         $(':input').removeClass('input--error')

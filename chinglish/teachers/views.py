@@ -15,8 +15,9 @@ class TeacherView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         user = self.request.user
         if user:
-            context['teacher'], created = Teacher.objects.get_or_create(user=user)
-
+            context['user_info'], created = Teacher.objects.get_or_create(user=user)
+            context['form_user_data'] = InfoTeacherForm()
+            context['form_user_photo'] = PhotoTeacherForm()
         return context
 
 
@@ -29,6 +30,7 @@ class UpdatePhotoTeacherView(UpdateView):
     template_name = 'pages/teacher.html'
     template_name_suffix = ''
 
+
 update_photo_teacher_view = UpdatePhotoTeacherView.as_view()
 
 
@@ -37,15 +39,15 @@ class UpdateInfoTeacherView(UpdateView):
     form_class = InfoTeacherForm
     template_name = 'pages/teacher.html'
     template_name_suffix = ''
-    
+
     def form_invalid(self, form):
         """If the form is invalid, render the invalid form."""
         return JsonResponse(form.errors, status=500)
-        
+
     def form_valid(self, form):
         """If the form is valid, save the associated model."""
         self.object = form.save()
         return JsonResponse({'status': 'ok'})
-        
+
 
 update_info_teacher_view = UpdateInfoTeacherView.as_view()

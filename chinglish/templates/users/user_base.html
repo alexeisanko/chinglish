@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}
+  {% block user_css %}
+  {% endblock user_css %}
+{% endblock css %}
+
+{% block javascript %}
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js'></script>
+  <script defer src="{% static 'js/calendar.js' %}"></script>
+  <script defer src="{% static 'js/modal_user.js' %}"></script>
+  {% block user_javascript %}
+  {% endblock user_javascript %}
+{% endblock javascript %}
+
+{% block content %}
+  <body class="cabinet">
+  {% block cabinet-data %}
+  {% endblock cabinet-data %}
+
+  {% block header-users %}
+    <header class="header">
+      <div class="container">
+        <div class="menu header__menu">
+          <a href="{% url 'main:home' %}" class="logo"><img class="logo__img" src="{% static 'images/menu/logo.svg' %}"
+                                                            alt="CHINGLISH"></a>
+          <ul class="menu__items">
+            <li><a href="{% url 'main:home' %}#services" class="link menu__item">Услуги</a></li>
+            <li><a href="{% url 'main:home' %}#team" class="link menu__item">Команда</a></li>
+            <li><a href="{% url 'main:home' %}#rewievs" class="link menu__item">Отзывы</a></li>
+            <li><a href="{% url 'main:home' %}#contacts" class="link menu__item">Контакты</a></li>
+            <li><a href="{% url 'main:home' %}#contacts" class="link menu__item">Как добраться?</a></li>
+          </ul>
+          <div class="menu__block">
+            <a href="{% url 'users:redirect' %}">
+              {% if user_info.photo %}
+                <div class="btn"><img src="{{ user_info.photo.url }}" alt="Ваше фото">
+              {% else %}
+                <div class="btn"><img src="{% static 'images/noname_user.png' %}" alt="Ваше фото">
+              {% endif %}
+              {% if user.is_staff %}
+                {{ user_info.first_name|default:"Учитель" }}
+              {% else %}
+                {{ user_info.first_name|default:"Ученик" }}
+              {% endif %}
+              </div>
+            </a>
+            <div class="menu__media"><span></span><span></span><span></span></div>
+          </div>
+        </div>
+      </div>
+    </header>
+  {% endblock header-users %}
+
+  {% block info-users %}
+    <div class="info">
+      <div class="container">
+        <div class="info__block">
+          <img src="
+          {% if user_info.photo %}{{ user_info.photo.url }}{% else %}{% static 'images/noname_user.png' %}{% endif %}"
+               alt="">
+          <div class="info__text">
+            <span>
+              {% if user.is_staff %}
+                {{ user_info.first_name|default:"Учитель" }}
+              {% else %}
+                {{ user_info.first_name|default:"Ученик" }}
+              {% endif %}</span>
+          </div>
+        </div>
+        <div class="btn data-btn">Изменить личные данные</div>
+      </div>
+    </div>
+  {% endblock info-users %}
+
+
+  {% block calendar %}
+    <div class="schedule">
+      <div class="container" style="width: 70%; margin-top: 50px">
+        <div id='calendar'></div>
+      </div>
+    </div>
+  {% endblock calendar %}
+
+  {% block modal %}
+    <div class="modal modal-data" id="modal-user_data">
+      <div class="modal-content">
+        <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
+        <h2 class="modal__title">Изменение пароля</h2>
+        <form action="#" class="modal__form">
+          <span class="form-error error-message"></span>
+          <input type="password" placeholder="Введите пароль" name=password>
+          <span class="error-message"></span>
+          <input type="password" placeholder="Повторите пароль" name=password2>
+          <span class="error-message"></span>
+          <input type="submit" value="Изменить пароль">
+          {% csrf_token %}
+        </form>
+      </div>
+    </div>
+    <div class="modal modal-data" id="modal-user_img">
+      <div class="modal-content">
+        <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
+        <h2 class="modal__title">Изменение фото</h2>
+        <form action="{% url 'teachers:profile' %}update-photo/{{ teacher.pk }}/" method="post" class="modal__form"
+              enctype="multipart/form-data">
+          {% for field in form_user_photo %}
+            {{ field }}
+          {% endfor %}
+          <input type="submit" value="Изменить фото">
+          {% csrf_token %}
+        </form>
+      </div>
+    </div>
+    {% block add_custom_modal %}
+    {% endblock add_custom_modal %}
+  {% endblock modal %}
+  </body>
+{% endblock content %}
