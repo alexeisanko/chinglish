@@ -28,7 +28,8 @@ class TrialLesson(models.Model):
     age = models.IntegerField(verbose_name='Возраст')
     teacher = models.ForeignKey('teachers.Teacher', on_delete=models.CASCADE, verbose_name="Преподаватель")
     phone_regex = re.compile(r'(?:\+|\d)[\d\-\(\) ]{9,}\d')
-    phone = models.CharField(verbose_name="Номер телефона", max_length=18, validators=[RegexValidator(regex=phone_regex, message='Некорректный номер телефона')])
+    phone = models.CharField(verbose_name="Номер телефона", max_length=18,
+                             validators=[RegexValidator(regex=phone_regex, message='Некорректный номер телефона')])
     classroom = models.IntegerField(verbose_name='Класс')
 
     def __str__(self):
@@ -37,3 +38,43 @@ class TrialLesson(models.Model):
     class Meta:
         verbose_name = 'Пробное занятие'
         verbose_name_plural = "Пробные занятия"
+
+
+class StartTime(models.Model):
+    start_time = models.TimeField(verbose_name='Время начала занятий')
+
+    def __str__(self):
+        return f'{self.start_time}'
+
+
+class Meta:
+    verbose_name = 'Время начала занятий'
+    verbose_name_plural = "Время начала занятий"
+
+
+class NotStandardDays(models.Model):
+    day = models.DateField(verbose_name='Дата')
+    is_work = models.BooleanField(verbose_name='Это рабочий день?', default=False)
+
+    class Meta:
+        verbose_name = 'Нестандартный рабочий день'
+
+    verbose_name_plural = "Нестандартные рабочие дни"
+
+
+class Lesson(models.Model):
+    teacher = models.ForeignKey('teachers.Teacher', on_delete=models.CASCADE, verbose_name="Преподаватель")
+    type_lesson = models.ForeignKey(TypeLesson, on_delete=models.CASCADE, verbose_name="Тип занятия")
+    date = models.DateField(verbose_name='Дата')
+    time = models.TimeField(verbose_name='Время')
+    homework_text = models.TextField(verbose_name='Домашнее задание', blank=True)
+
+
+class Visitors(models.Model):
+    student = models.ForeignKey('students.Student', on_delete=models.CASCADE, verbose_name="Студент")
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, verbose_name="Занятие")
+
+
+class HomeWork(models.Model):
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, verbose_name="Занятие")
+    homework_file = models.FileField(verbose_name='Домашнее задание', blank=True, upload_to='homework')

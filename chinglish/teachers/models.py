@@ -32,3 +32,8 @@ class Teacher(models.Model):
 
     def get_absolute_url(self):
         return f'/teachers/'
+
+
+class TeacherLesson(models.Model):
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+    type_lesson = models.ForeignKey('main.TypeLesson', on_delete=models.CASCADE)

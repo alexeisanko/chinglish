@@ -14,6 +14,6 @@ class TrialLessonForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'placeholder': 'Введите ФИО', 'class': 'input'}),
             'age': forms.TextInput(attrs={'placeholder': 'Введите возраст', 'class': 'input'}),
             'teacher': forms.Select(attrs={'placeholder': 'Выберите преподавателя', 'class': 'input'}),
-            'phone': forms.TextInput(attrs={'placeholder': 'Введите номер телефона', 'class': 'input'}),
+            'phone': forms.TextInput(attrs={'placeholder': 'Введите номер телефона', 'class': 'input mask-phone'}),
             'classroom': forms.TextInput(attrs={'placeholder': 'Введите класс', 'class': 'input'}),
         }
