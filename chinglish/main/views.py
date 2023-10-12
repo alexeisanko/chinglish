@@ -1,10 +1,11 @@
 from typing import Any, Dict
 
 from django.views.generic import TemplateView, CreateView
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpRequest
 
 from chinglish.main.models import TrialLesson
 from chinglish.main.forms import TrialLessonForm
+from chinglish.main.utilities import  get_teacher_for_trial_lesson, get_free_date_time
 
 
 class HomeView(TemplateView):
@@ -15,7 +16,8 @@ class HomeView(TemplateView):
         user = self.request.user
         if user:
             context['form'] = TrialLessonForm
-
+            teacher_for_trial = get_teacher_for_trial_lesson()
+            context['teacher_for_trial'] = teacher_for_trial
         return context
 
 
@@ -39,3 +41,8 @@ class TrialLessonCreateView(CreateView):
 
 
 trial_lesson_create_view = TrialLessonCreateView.as_view()
+
+
+def free_times_for_record_view(request: HttpRequest, teacher_id):
+    free_date_time = get_free_date_time(teacher_id)
+    return JsonResponse(free_date_time)

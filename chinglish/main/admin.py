@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from chinglish.main.models import TypeLesson, TrialLesson
+from chinglish.main.models import TypeLesson, TrialLesson, StartTime
 
 
 @admin.register(TypeLesson)
@@ -34,3 +34,8 @@ class TrialLessonAdmin(admin.ModelAdmin):
     )
     list_display = ["type_lesson", "teacher", "name", "date", "time", "age", "phone", "classroom"]
     search_fields = ["name"]
+
+
+@admin.register(StartTime)
+class StartTimeAdmin(admin.ModelAdmin):
+    list_display = ['start_time']

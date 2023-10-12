@@ -4,6 +4,18 @@ from django.db import models
 from django.core.validators import RegexValidator
 
 
+class StartTime(models.Model):
+    start_time = models.TimeField(verbose_name='Время начала занятий')
+    actual = models.BooleanField(verbose_name="Актуальное время?", default=True)
+
+    def __str__(self):
+        return f'{self.start_time}'
+
+    class Meta:
+        verbose_name = 'Время начала занятий'
+        verbose_name_plural = "Время начала занятий"
+
+
 class TypeLesson(models.Model):
     name = models.CharField(verbose_name='Тип занятия', unique=True, max_length=40)
     is_group_lesson = models.BooleanField(verbose_name='Групповое занятие', default=False)
@@ -23,7 +35,7 @@ class TypeLesson(models.Model):
 class TrialLesson(models.Model):
     type_lesson = models.ForeignKey(TypeLesson, on_delete=models.CASCADE, verbose_name="Тип занятия")
     date = models.DateField(verbose_name='Дата')
-    time = models.TimeField(verbose_name='Время')
+    time = models.ForeignKey(StartTime, verbose_name='Время', on_delete=models.PROTECT)
     name = models.CharField(verbose_name='Ученик', max_length=100)
     age = models.IntegerField(verbose_name='Возраст')
     teacher = models.ForeignKey('teachers.Teacher', on_delete=models.CASCADE, verbose_name="Преподаватель")
@@ -40,18 +52,6 @@ class TrialLesson(models.Model):
         verbose_name_plural = "Пробные занятия"
 
 
-class StartTime(models.Model):
-    start_time = models.TimeField(verbose_name='Время начала занятий')
-
-    def __str__(self):
-        return f'{self.start_time}'
-
-
-class Meta:
-    verbose_name = 'Время начала занятий'
-    verbose_name_plural = "Время начала занятий"
-
-
 class NotStandardDays(models.Model):
     day = models.DateField(verbose_name='Дата')
     is_work = models.BooleanField(verbose_name='Это рабочий день?', default=False)
@@ -66,7 +66,7 @@ class Lesson(models.Model):
     teacher = models.ForeignKey('teachers.Teacher', on_delete=models.CASCADE, verbose_name="Преподаватель")
     type_lesson = models.ForeignKey(TypeLesson, on_delete=models.CASCADE, verbose_name="Тип занятия")
     date = models.DateField(verbose_name='Дата')
-    time = models.TimeField(verbose_name='Время')
+    time = models.ForeignKey(StartTime, verbose_name='Время', on_delete=models.PROTECT)
     homework_text = models.TextField(verbose_name='Домашнее задание', blank=True)
 
 
