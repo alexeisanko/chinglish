@@ -374,20 +374,14 @@
           <p class="title__small">Запись на занятие</p>
           <p class="title__big">Form for lesson</p>
         </div>
-        <form action="#" class="form-lesson">
+        <form action="{% url 'main:create_trial_lesson' %}" class="form-lesson" method="post">
+          <span class="form-error error-message"></span>
           {% for field in form %}
             {{ field }}
-            {{ field.errors }}
+            <span class="error-message"></span>
           {% endfor %}
-{#          <input type="text" class="input" placeholder="Выберите вид занятия">#}
-{#          <input type="text" class="input" placeholder="Выберите преподавателя">#}
-{#          <input type="text" class="input" placeholder="Выберите дату">#}
-{#          <input type="text" class="input" placeholder="Выберите время">#}
-{#          <input type="text" class="input" placeholder="Введите ФИО">#}
-{#          <input type="text" class="input" placeholder="Введите номер телефона">#}
-{#          <input type="text" class="input" placeholder="Введите возраст">#}
-{#          <input type="text" class="input" placeholder="Введите класс">#}
           <input type="submit" class="btn" value="Записаться на бесплатное занятие">
+        {% csrf_token %}
         </form>
       </div>
     </section>
@@ -486,5 +480,13 @@
       </div>
     </div>
   {% endblock modal %}
+  {% block inline_javascript %}
+    <script>
+      let available_type_lesson = JSON.parse('{{ available_type_lesson|escapejs }}')
+      let free_time_teachers = JSON.parse('{{ free_time_teachers|escapejs }}')
+      console.log(available_type_lesson)
+      console.log(free_time_teachers)
+    </script>
+  {% endblock inline_javascript %}
   </body>
 {% endblock content %}

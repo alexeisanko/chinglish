@@ -44,7 +44,6 @@
       <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
       <h2 class="modal__title">Изменение данных</h2>
       <form action="{% url 'students:profile' %}update-info/{{ user_info.pk }}/" method="post" class="modal__form">
-
         <span class="form-error error-message"></span>
         <input type="text" placeholder="{{ user_info.last_name|default:"Фамилия" }}" name="last_name"
                value="{{ user_info.last_name }}">

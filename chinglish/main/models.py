@@ -75,6 +75,6 @@ class Visitors(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, verbose_name="Занятие")
 
 
-class HomeWork(models.Model):
+class HomeWorkFile(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, verbose_name="Занятие")
     homework_file = models.FileField(verbose_name='Домашнее задание', blank=True, upload_to='homework')

@@ -1,6 +1,5 @@
 $(document).ready(function () {
 
-
     $('.header .auth').click(function () {
         $('.modal-auth').css('display', 'block');
     });
@@ -11,20 +10,6 @@ $(document).ready(function () {
     $('.modal-reg span').click(function () {
         $('.modal-reg').css('display', 'none');
         $('.modal-auth').css('display', 'block');
-    });
-    $('.modal__close').click(function () {
-        $('.modal-reg').css('display', 'none');
-        $('.modal-auth').css('display', 'none');
-        $('.modal-data').css('display', 'none');
-        $('.data').css('display', 'none');
-        DeleteErrors(true)
-    });
-    $('.data-btn').click(function () {
-        $('.data').css('display', 'block');
-    });
-    $('.btn-change').click(function () {
-        $('.modal-data').css('display', 'block');
-        $('.data').css('display', 'none');
     });
 
     $('.modal-auth, .modal-reg').on("submit", "form", function () {
@@ -75,20 +60,6 @@ $(document).ready(function () {
             }
         }
         return errors
-    }
-
-    function DeleteErrors(close_modal = false) {
-        $(':input').removeClass('input--error')
-        $('.error-message').text("").removeClass('span--error')
-        $('.modal').removeClass('modal__dialog--error')
-        if (close_modal) {
-            $('.modal').removeClass('modal--visible')
-        }
-    }
-
-    function MessageEvent(event) {
-        $('.modal__message').addClass('modal--visible');
-        $('.text-message-modal').text(event['msg'])
     }
 
 })

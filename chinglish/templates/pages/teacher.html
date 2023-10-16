@@ -43,7 +43,6 @@
       <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
       <h2 class="modal__title">Изменение данных</h2>
       <form action="{% url 'teachers:profile' %}update-info/{{ user_info.pk }}/" method="post" class="modal__form">
-
         <span class="form-error error-message"></span>
         <input type="text" placeholder="{{ user_info.last_name|default:"Фамилия" }}" name="last_name"
                value="{{ user_info.last_name }}">
@@ -60,10 +59,31 @@
         <input type="date" placeholder="{{ user_info.birthday|default:"День рождения" }}" name="birthday"
                value="{{ user_info.birthday|date:"Y-m-d"}}">
         <span class="error-message"></span>
-
         <input type="submit" value="Изменить данные">
         {% csrf_token %}
       </form>
     </div>
   </div>
+  <div class="modal modal-data" id="create_update_lesson">
+    <div class="modal-content">
+      <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
+      <h2 class="modal__title">Занятие</h2>
+      <form action="{% url 'teachers:update_lesson' %}" method="post" class="modal__form">
+        <span class="form-error error-message"></span>
+        {% for field in form_lesson %}
+          {{ field }}
+          <span class="error-message"></span>
+        {% endfor %}
+        <input type="submit" value="Создать занятие">
+        {% csrf_token %}
+      </form>
+    </div>
+  </div>
 {% endblock add_custom_modal %}
+
+{% block inline_javascript %}
+  <script>
+    let lessons_json = JSON.parse('{{ lessons_for_calendar|escapejs }}')
+    console.log(lessons_json)
+  </script>
+{% endblock inline_javascript %}
