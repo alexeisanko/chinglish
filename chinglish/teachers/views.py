@@ -15,8 +15,8 @@ from chinglish.teachers.forms import (
     UpdateHomeWorkForm,
     UpdateVisitorsForm
 )
-from chinglish.main.models import Lesson, TrialLesson, HomeWorkFile, Visitors
-from chinglish.teachers.utilities import get_all_lesson_teacher
+from chinglish.main.models import Lesson, HomeWorkFile, Visitors
+from chinglish.teachers.utilities import get_all_lesson_teacher, get_available_type_lesson
 
 
 class TeacherView(LoginRequiredMixin, TemplateView):
@@ -27,12 +27,12 @@ class TeacherView(LoginRequiredMixin, TemplateView):
         user = self.request.user
         if user:
             teacher, created = Teacher.objects.get_or_create(user=user)
-            context['user_info'] = Teacher.objects.get_or_create(user=user)
+            context['user_info'] = teacher
             context['form_user_data'] = InfoTeacherForm()
             context['form_user_photo'] = PhotoTeacherForm()
             context['form_lesson'] = UpdateLessonForm()
-            lessons_for_calendar = json.dumps(get_all_lesson_teacher(teacher))
-            context['lessons_for_calendar'] = lessons_for_calendar
+            context['lessons_for_calendar'] = json.dumps(get_all_lesson_teacher(teacher))
+            context['available_lesson'] = json.dumps(get_available_type_lesson(teacher))
         return context
 
 

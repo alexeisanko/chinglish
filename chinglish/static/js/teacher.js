@@ -1,3 +1,7 @@
+$(document).ready(function () {
+
+})
+
 document.addEventListener('DOMContentLoaded', function () {
     let calendarEl = document.getElementById('calendar');
     RenderCalendar(calendarEl, lessons_json)
@@ -30,6 +34,15 @@ function RenderCalendar(calendarEl, events) {
 
 function MakeNewEvent(date) {
     OpenModal('create_update_lesson')
+    $('#id_date').val(date)
+    CleanOption([input_type_lesson, input_time])
+    input_type_lesson.options[0] = new Option("Выберите Вид занятия", null);
+    let i = 1
+    for (let type_lesson of type_lessons_json) {
+        input_type_lesson.options[i] = new Option(type_lesson.type, type_lesson.id);
+        i += 1
+    }
+
 }
 
 function GetEvent(id_event) {
@@ -88,10 +101,5 @@ function GetWorkingConditions(date) {
     })
 }
 
-function OpenModal(modal_id) {
-    $('.modal').css('display', 'none');
-    $('.data').css('display', 'none');
-    $(`#${modal_id}`).css('display', 'block');
-}
 
 

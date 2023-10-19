@@ -1,6 +1,6 @@
 import datetime
 
-from chinglish.main.models import Lesson, TrialLesson
+from chinglish.main.models import Lesson, TrialLesson, TypeLesson
 
 
 def get_all_lesson_teacher(teacher):
@@ -47,3 +47,11 @@ def get_all_lesson_teacher(teacher):
         lesson in trial_lessons]
 
     return lessons_for_calendar
+
+
+def get_available_type_lesson(teacher):
+    type_lessons = [{
+        'id': type_lessons.id,
+        'type': type_lessons.name,
+    } for type_lessons in TypeLesson.objects.filter(teacherlesson__teacher=teacher)]
+    return type_lessons

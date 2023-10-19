@@ -2,8 +2,7 @@ $(document).ready(function () {
     $('.mask-phone').mask("+7 (999) 999-99-99")
 
     $('.modal__close').click(function () {
-        $('.modal').css('display', 'none');
-        DeleteErrors(true)
+        CloseModal()
     });
 })
 
@@ -23,6 +22,17 @@ async function SendAjaxForm(ajax_form, url, method, next_func, data_type = 'json
         }
     })
     return false
+}
+
+function OpenModal(modal_id) {
+    CloseModal()
+    $(`#${modal_id}`).css('display', 'block');
+}
+
+function CloseModal() {
+    $('.modal').css('display', 'none');
+    $('.data').css('display', 'none');
+    DeleteErrors(true)
 }
 
 function CleanOption(input_fields) {

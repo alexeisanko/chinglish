@@ -69,11 +69,17 @@
       <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
       <h2 class="modal__title">Занятие</h2>
       <form action="{% url 'teachers:update_lesson' %}" method="post" class="modal__form">
+        <span>{{ user_info.get_full_name }}</span>
         <span class="form-error error-message"></span>
-        {% for field in form_lesson %}
-          {{ field }}
+      <input type="text" name="teacher" placeholder="Учитель" required hidden id="id_teacher" value="{{ user_info.id }}">
+      <span class="error-message"></span>
+      <input type="text" name="date" placeholder="Учитель" required readonly id="id_date">
+      <span class="error-message"></span>
+        {{ form_lesson.type_lesson }}
           <span class="error-message"></span>
-        {% endfor %}
+        {{ form_lesson.time }}
+          <span class="error-message"></span>
+
         <input type="submit" value="Создать занятие">
         {% csrf_token %}
       </form>
@@ -84,6 +90,8 @@
 {% block inline_javascript %}
   <script>
     let lessons_json = JSON.parse('{{ lessons_for_calendar|escapejs }}')
-    console.log(lessons_json)
+    let type_lessons_json = JSON.parse('{{ available_lesson|escapejs }}')
+    let input_type_lesson = document.getElementById('id_type_lesson')
+    let input_time = document.getElementById('id_time')
   </script>
 {% endblock inline_javascript %}
