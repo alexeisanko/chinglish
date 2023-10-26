@@ -44,7 +44,7 @@
       <h2 class="modal__title">Изменение данных</h2>
       <form action="{% url 'teachers:profile' %}update-info/{{ user_info.pk }}/" method="post" class="modal__form">
         <span class="form-error error-message"></span>
-        <input type="text" placeholder="{{ user_info.last_name|default:"Фамилия" }}" name="last_name"
+        <input type="text" placeholder="{{ user_info.last_name|default_if_none:"Фамилия" }}" name="last_name"
                value="{{ user_info.last_name }}">
         <span class="error-message"></span>
         <input type="text" placeholder="{{ user_info.first_name|default:"Имя" }}" name="first_name"
@@ -68,21 +68,81 @@
     <div class="modal-content">
       <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
       <h2 class="modal__title">Занятие</h2>
+      <span class="teacher_name">{{ user_info.get_full_name|default:"Не заполнено имя" }}</span>
+      <span class="date_lesson">{{ user_info.get_full_name|default:"Не заполнено имя" }}</span>
       <form action="{% url 'teachers:update_lesson' %}" method="post" class="modal__form">
-        <span>{{ user_info.get_full_name }}</span>
+        
         <span class="form-error error-message"></span>
       <input type="text" name="teacher" placeholder="Учитель" required hidden id="id_teacher" value="{{ user_info.id }}">
       <span class="error-message"></span>
-      <input type="text" name="date" placeholder="Учитель" required readonly id="id_date">
+      <input type="text" name="date" placeholder="Учитель" required hidden id="id_date">
       <span class="error-message"></span>
         {{ form_lesson.type_lesson }}
           <span class="error-message"></span>
         {{ form_lesson.time }}
           <span class="error-message"></span>
+      {{ form_lesson.homework_text }}
+      <span class="error-message"></span>
 
         <input type="submit" value="Создать занятие">
         {% csrf_token %}
       </form>
+      <span class="change_visitors">Ученики</span>
+      <span class="change_homework_file">Домашняя работа</span>
+    </div>
+  </div>
+    <div class="modal modal-data" id="change_visitors">
+    <div class="modal-content">
+      <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
+      <h2 class="modal__title">Посетители</h2>
+      <form action="{% url 'teachers:update_lesson' %}" method="post" class="modal__form">
+        <span>Имя учителя</span>
+        <span>Тип занятие | время занятия</span>
+        <span>УЧЕНИКИ</span>
+        <div class="multi-field-wrapper">
+          <div class="multi-fields">
+            <div class="multi-field">
+              <input type="text" name="stuff[]">
+              <button type="button" class="remove-field">Удалить</button>
+            </div>
+          </div>
+          <button type="button" class="add-field">Добавить ученика</button>
+        </div>
+        <span class="form-error error-message"></span>
+        <span class="error-message"></span>
+
+        <input type="submit" value="Сохранить">
+        {% csrf_token %}
+      </form>
+      <span class="create_update_lesson">Назад</span>
+      
+    </div>
+  </div>
+    </div>
+    <div class="modal modal-data" id="change_homework_file">
+    <div class="modal-content">
+      <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
+      <h2 class="modal__title">Домашняя работа</h2>
+      <form action="{% url 'teachers:update_lesson' %}" method="post" class="modal__form">
+        <span>Имя учителя</span>
+        <span>Тип занятие | время занятия</span>
+        <span>Доамшняя работа</span>
+        <div class="multi-field-wrapper">
+          <div class="multi-fields">
+            <div class="multi-field">
+              <input type="file" name="stuff[]">
+              <button type="button" class="remove-field">Удалить</button>
+            </div>
+          </div>
+          <button type="button" class="add-field">Добавить файл</button>
+        </div>
+        <span class="form-error error-message"></span>
+        <span class="error-message"></span>
+
+        <input type="submit" value="Сохранить">
+        {% csrf_token %}
+      </form>
+      <span class="create_update_lesson">Назад</span>
     </div>
   </div>
 {% endblock add_custom_modal %}

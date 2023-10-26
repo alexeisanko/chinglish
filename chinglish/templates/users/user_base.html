@@ -102,7 +102,7 @@
       <div class="modal-content">
         <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
         <h2 class="modal__title">Изменение фото</h2>
-        <form action="{% url 'teachers:profile' %}update-photo/{{ teacher.pk }}/" method="post" class="modal__form"
+        <form action="{% url 'teachers:profile' %}update-photo/{{ user_info.pk }}/" method="post" class="modal__form"
               enctype="multipart/form-data">
           {% for field in form_user_photo %}
             {{ field }}

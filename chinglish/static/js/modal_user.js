@@ -4,23 +4,33 @@ $(document).ready(function () {
         $('.data').css('display', 'block');
     });
     $('.btn-change-data').click(function () {
-        $('#modal-data').css('display', 'block');
-        $('#modal-user_data').css('display', 'none');
-        $('#modal-user_img').css('display', 'none');
+        OpenModal('modal-data')
         $('.data').css('display', 'none');
     });
     $('.btn-change-user-data').click(function () {
-        $('#modal-user_data').css('display', 'block');
-        $('#modal-data').css('display', 'none');
-        $('#modal-user_img').css('display', 'none');
+        OpenModal('modal-user_data')
         $('.data').css('display', 'none');
     });
     $('.data__img').click(function () {
-        $('#modal-user_img').css('display', 'block');
-        $('#modal-data').css('display', 'none');
-        $('#modal-user_data').css('display', 'none');
+        OpenModal('modal-user_img')
         $('.data').css('display', 'none');
     });
+    
+    $('.change_homework_file').click(function () {
+        OpenModal('change_homework_file')
+        $('.data').css('display', 'none');
+    });
+    
+    $('.change_visitors').click(function () {
+        OpenModal('change_visitors')
+        $('.data').css('display', 'none');
+    });
+    
+    $('.create_update_lesson').click(function () {
+        OpenModal('create_update_lesson')
+        $('.data').css('display', 'none');
+    });
+    
 
     $('#modal-data').on("submit", "form", function (event) {
         event.preventDefault();

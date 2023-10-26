@@ -1,5 +1,14 @@
 $(document).ready(function () {
-
+    $('.multi-field-wrapper').each(function() {
+        var $wrapper = $('.multi-fields', this);
+        $(".add-field", $(this)).click(function(e) {
+            $('.multi-field:first-child', $wrapper).clone(true).appendTo($wrapper).find('input').val('').focus();
+        });
+        $('.multi-field .remove-field', $wrapper).click(function() {
+            if ($('.multi-field', $wrapper).length > 1)
+                $(this).parent('.multi-field').remove();
+        });
+    });
 })
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -35,6 +44,7 @@ function RenderCalendar(calendarEl, events) {
 function MakeNewEvent(date) {
     OpenModal('create_update_lesson')
     $('#id_date').val(date)
+    $('.date_lesson').text(date)
     CleanOption([input_type_lesson, input_time])
     input_type_lesson.options[0] = new Option("Выберите Вид занятия", null);
     let i = 1

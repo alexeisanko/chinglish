@@ -50,7 +50,7 @@ update_photo_teacher_view = UpdatePhotoTeacherView.as_view()
 
 
 class UpdateInfoTeacherView(UpdateView):
-    model = Lesson
+    model = Teacher
     form_class = InfoTeacherForm
     template_name = 'pages/teacher.html'
     template_name_suffix = ''

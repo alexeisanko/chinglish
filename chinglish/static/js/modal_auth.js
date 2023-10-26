@@ -1,15 +1,13 @@
 $(document).ready(function () {
 
     $('.header .auth').click(function () {
-        $('.modal-auth').css('display', 'block');
+        OpenModal('modal-auth')
     });
     $('.modal-auth span').click(function () {
-        $('.modal-auth').css('display', 'none');
-        $('.modal-reg').css('display', 'block');
+        OpenModal('modal-reg');
     });
     $('.modal-reg span').click(function () {
-        $('.modal-reg').css('display', 'none');
-        $('.modal-auth').css('display', 'block');
+        OpenModal('modal-auth')
     });
 
     $('.modal-auth, .modal-reg').on("submit", "form", function () {

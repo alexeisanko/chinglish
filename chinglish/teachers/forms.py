@@ -19,7 +19,7 @@ class PhotoTeacherForm(forms.ModelForm):
 class UpdateLessonForm(forms.ModelForm):
     class Meta:
         model = Lesson
-        fields = ['teacher', 'date', 'type_lesson', 'time']
+        fields = ['teacher', 'date', 'type_lesson', 'time', 'homework_text']
         widgets = {
             'teacher': forms.TextInput(attrs={'placeholder': 'Учитель'}),
             'date': forms.TextInput(attrs={'placeholder': 'Учитель'})
