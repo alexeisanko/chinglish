@@ -68,7 +68,7 @@
               {% endif %}</span>
           </div>
         </div>
-        <div class="btn data-btn">Изменить личные данные</div>
+        <div class="btn data-btn open_modal" data-modal="modal-user_cabinet">Изменить личные данные</div>
       </div>
     </div>
   {% endblock info-users %}
@@ -83,7 +83,7 @@
   {% endblock calendar %}
 
   {% block modal %}
-    <div class="modal modal-data" id="modal-user_data">
+    <div class="modal modal-data" id="modal-account_data">
       <div class="modal-content">
         <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
         <h2 class="modal__title">Изменение пароля</h2>

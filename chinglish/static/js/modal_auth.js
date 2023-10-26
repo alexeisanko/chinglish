@@ -1,16 +1,6 @@
 $(document).ready(function () {
 
-    $('.header .auth').click(function () {
-        OpenModal('modal-auth')
-    });
-    $('.modal-auth span').click(function () {
-        OpenModal('modal-reg');
-    });
-    $('.modal-reg span').click(function () {
-        OpenModal('modal-auth')
-    });
-
-    $('.modal-auth, .modal-reg').on("submit", "form", function () {
+    $('#modal-auth, #modal-reg').on("submit", "form", function () {
         DeleteErrors()
         let $form = $(this);
         $.ajax({

@@ -1,6 +1,11 @@
 $(document).ready(function () {
     $('.mask-phone').mask("+7 (999) 999-99-99")
 
+
+    $('.open_modal').click(function () {
+        OpenModal(this.dataset.modal)
+    });
+
     $('.modal__close').click(function () {
         CloseModal()
     });

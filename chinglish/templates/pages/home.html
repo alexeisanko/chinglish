@@ -9,6 +9,7 @@
 {% endblock css %}
 
 {% block javascript %}
+  <script defer src="{% static 'js/modal_auth.js' %}"></script>
   <script src="{% static 'js/owl.carousel.min.js' %}"></script>
   <script defer src="{% static 'js/home.js' %}"></script>
 {% endblock javascript %}
@@ -65,7 +66,7 @@
               </div>
             </a>
           {% else %}
-            <div class="btn menu__btn auth">Войти</div>
+            <div class="btn menu__btn open_modal" data-modal="modal-auth">Войти</div>
           {% endif %}
           <div class="menu__media"><span></span><span></span><span></span></div>
         </div>
@@ -445,7 +446,7 @@
     </div>
   </footer>
   {% block modal %}
-    <div class="modal modal-auth" id="modal-auth">
+    <div class="modal" id="modal-auth">
       <div class="modal-content">
         <a href="#" class="modal__close"><img src="{% static "images/close.svg" %}" alt="х"></a>
         <h2 class="modal__title">Авторизация</h2>
@@ -455,13 +456,13 @@
           <span class="error-message"></span>
           <input type="password" placeholder="Введите пароль" name="password">
           <span class="error-message"></span>
-          <span>Зарегистрироваться</span>
+          <span class="open_modal" data-modal="modal-reg">Зарегистрироваться</span>
           <input type="submit" value="Войти">
           {% csrf_token %}
         </form>
       </div>
     </div>
-    <div class="modal modal-reg" id="modal-reg">
+    <div class="modal" id="modal-reg">
       <div class="modal-content">
         <a href="#" class="modal__close"><img src="{% static "images/close.svg" %}" alt="х"></a>
         <h2 class="modal__title">Регистрация</h2>
@@ -473,7 +474,7 @@
           <span class="error-message"></span>
           <input type="password" placeholder="Повторите пароль" name="password2">
           <span class="error-message"></span>
-          <span>Авторизация</span>
+          <span class="open_modal" data-modal="modal-auth">Авторизация</span>
           <input type="submit" value="Зарегистрироваться">
           {% csrf_token %}
         </form>

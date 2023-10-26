@@ -10,10 +10,10 @@
 {% endblock user_javascript %}
 
 {% block cabinet-data %}
-  <div class="cabinet-data data">
+  <div class="cabinet-data data" id="modal-user_cabinet">
     <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
     <h2 class="data__title">Личные данные</h2>
-    <div class="data__img"><img
+    <div class="data__img open_modal" data-modal="modal-user_img"><img
       src="{% if user_info.photo %}{{ user_info.photo.url }}{% else %}{% static 'images/noname_user.png' %}{% endif %}"
       alt=""><span>Изменить фото</span>
     </div>
@@ -32,13 +32,13 @@
       {% endif %}
 
     </div>
-    <div class="btn btn-change-data">Редактировать данные</div>
-    <div class="btn btn-change">Изменить пароль</div>
+    <div class="btn btn-change-data open_modal" data-modal="modal-user_data">Редактировать данные</div>
+    <div class="btn btn-change open_modal" data-modal="modal-account_data">Изменить пароль</div>
   </div>
 {% endblock cabinet-data %}
 
 {% block add_custom_modal %}
-  <div class="modal modal-data" id="modal-data">
+  <div class="modal modal-data" id="modal-user_data">
     <div class="modal-content">
       <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
       <h2 class="modal__title">Изменение данных</h2>
@@ -64,34 +64,35 @@
       </form>
     </div>
   </div>
-  <div class="modal modal-data" id="create_update_lesson">
+  <div class="modal modal-data" id="modal-lesson_management">
     <div class="modal-content">
       <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
       <h2 class="modal__title">Занятие</h2>
       <span class="teacher_name">{{ user_info.get_full_name|default:"Не заполнено имя" }}</span>
       <span class="date_lesson">{{ user_info.get_full_name|default:"Не заполнено имя" }}</span>
       <form action="{% url 'teachers:update_lesson' %}" method="post" class="modal__form">
-        
+
         <span class="form-error error-message"></span>
-      <input type="text" name="teacher" placeholder="Учитель" required hidden id="id_teacher" value="{{ user_info.id }}">
-      <span class="error-message"></span>
-      <input type="text" name="date" placeholder="Учитель" required hidden id="id_date">
-      <span class="error-message"></span>
+        <input type="text" name="teacher" placeholder="Учитель" required hidden id="id_teacher"
+               value="{{ user_info.id }}">
+        <span class="error-message"></span>
+        <input type="text" name="date" placeholder="Учитель" required hidden id="id_date">
+        <span class="error-message"></span>
         {{ form_lesson.type_lesson }}
-          <span class="error-message"></span>
+        <span class="error-message"></span>
         {{ form_lesson.time }}
-          <span class="error-message"></span>
-      {{ form_lesson.homework_text }}
-      <span class="error-message"></span>
+        <span class="error-message"></span>
+        {{ form_lesson.homework_text }}
+        <span class="error-message"></span>
 
         <input type="submit" value="Создать занятие">
         {% csrf_token %}
       </form>
-      <span class="change_visitors">Ученики</span>
-      <span class="change_homework_file">Домашняя работа</span>
+      <span class="open_modal" data-modal="modal-lesson_student">Ученики</span>
+      <span class="open_modal" data-modal="modal-lesson_homework">Домашняя работа</span>
     </div>
   </div>
-    <div class="modal modal-data" id="change_visitors">
+  <div class="modal modal-data" id="modal-lesson_student">
     <div class="modal-content">
       <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
       <h2 class="modal__title">Посетители</h2>
@@ -114,12 +115,12 @@
         <input type="submit" value="Сохранить">
         {% csrf_token %}
       </form>
-      <span class="create_update_lesson">Назад</span>
-      
+      <span class="open_modal" data-modal="modal-lesson_management">Назад</span>
+
     </div>
   </div>
-    </div>
-    <div class="modal modal-data" id="change_homework_file">
+  </div>
+  <div class="modal modal-data" id="modal-lesson_homework">
     <div class="modal-content">
       <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
       <h2 class="modal__title">Домашняя работа</h2>
@@ -142,7 +143,7 @@
         <input type="submit" value="Сохранить">
         {% csrf_token %}
       </form>
-      <span class="create_update_lesson">Назад</span>
+      <span class="open_modal" data-modal="modal-lesson_management">Назад</span>
     </div>
   </div>
 {% endblock add_custom_modal %}

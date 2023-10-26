@@ -42,7 +42,7 @@ function RenderCalendar(calendarEl, events) {
 }
 
 function MakeNewEvent(date) {
-    OpenModal('create_update_lesson')
+    OpenModal('modal-lesson_management')
     $('#id_date').val(date)
     $('.date_lesson').text(date)
     CleanOption([input_type_lesson, input_time])
