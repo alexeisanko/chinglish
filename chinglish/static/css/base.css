@@ -11,7 +11,15 @@
   position: relative;
   z-index: 100;
 }
-
+.modal button {
+    border: 1px solid #fff !important;
+    margin: 10px 5px;
+    margin-bottom: 0;
+}
+.modal button:hover {
+    color: #fff !important;
+    background: rgba(255, 255, 255, 0.3) !important;
+}
 a {
   text-decoration: none;
 }
@@ -198,6 +206,9 @@ section {
 .cert .owl-prev {
   display: none !important;
 }
+.cert__img {
+    max-width: fit-content;
+}
 
 @media screen and (max-width: 677px) {
   .services__items {
@@ -216,7 +227,29 @@ section {
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.2);
 }
+.text-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.teacher_name {
+    display: block;
+    margin-top: 0px !important;
+}
 
+.modal select,
+.modal textarea {
+    background: transparent;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #fff;
+    color: #fff;
+    padding-bottom: 10px;
+    width: 100%;
+    max-width: 300px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
 .modal-content {
   background-color: #8D001A;
   margin: 15% auto;
@@ -623,7 +656,7 @@ section {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 50%;
+  width: 50% !important;
 }
 .cert img {
   height: 200px;

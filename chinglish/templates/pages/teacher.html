@@ -88,8 +88,10 @@
         <input type="submit" value="Создать занятие">
         {% csrf_token %}
       </form>
-      <span class="open_modal" data-modal="modal-lesson_student">Ученики</span>
-      <span class="open_modal" data-modal="modal-lesson_homework">Домашняя работа</span>
+      <div class="text-flex">
+          <span class="open_modal" data-modal="modal-lesson_student">Ученики</span>
+          <span class="open_modal" data-modal="modal-lesson_homework">Домашняя работа</span>
+      </div>
     </div>
   </div>
   <div class="modal modal-data" id="modal-lesson_student">
@@ -97,17 +99,19 @@
       <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
       <h2 class="modal__title">Посетители</h2>
       <form action="{% url 'teachers:update_lesson' %}" method="post" class="modal__form">
-        <span>Имя учителя</span>
-        <span>Тип занятие | время занятия</span>
-        <span>УЧЕНИКИ</span>
+        <p>Имя учителя</p>
+        <p>Тип занятие | время занятия</p>
+        <p>УЧЕНИКИ</p>
         <div class="multi-field-wrapper">
           <div class="multi-fields">
             <div class="multi-field">
-              <input type="text" name="stuff[]">
-              <button type="button" class="remove-field">Удалить</button>
+              <input placeholder="Введите ФИО ученика" type="text" name="stuff[]">
             </div>
           </div>
-          <button type="button" class="add-field">Добавить ученика</button>
+            <div class="text-flex">
+              <button type="button" class="remove-field btn">Удалить</button>
+              <button type="button" class="add-field btn">Добавить ученика</button>
+            </div>
         </div>
         <span class="form-error error-message"></span>
         <span class="error-message"></span>
@@ -125,17 +129,19 @@
       <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
       <h2 class="modal__title">Домашняя работа</h2>
       <form action="{% url 'teachers:update_lesson' %}" method="post" class="modal__form">
-        <span>Имя учителя</span>
-        <span>Тип занятие | время занятия</span>
-        <span>Доамшняя работа</span>
+        <p>Имя учителя</p>
+        <p>Тип занятие | время занятия</p>
+        <p>Домашняя работа</p>
         <div class="multi-field-wrapper">
           <div class="multi-fields">
             <div class="multi-field">
               <input type="file" name="stuff[]">
-              <button type="button" class="remove-field">Удалить</button>
             </div>
           </div>
-          <button type="button" class="add-field">Добавить файл</button>
+            <div class="text-flex">
+              <button type="button" class="remove-field btn">Удалить</button>
+              <button type="button" class="add-field btn">Добавить файл</button>
+            </div>
         </div>
         <span class="form-error error-message"></span>
         <span class="error-message"></span>
