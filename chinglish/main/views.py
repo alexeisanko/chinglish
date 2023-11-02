@@ -2,10 +2,9 @@ from typing import Any, Dict
 import json
 
 from django.views.generic import TemplateView, CreateView
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpRequest, FileResponse
 
-
-from chinglish.main.models import TrialLesson
+from chinglish.main.models import TrialLesson, HomeWorkFile
 from chinglish.main.forms import TrialLessonForm
 from chinglish.main.utilities import get_free_teacher_for_trial_lesson
 
@@ -47,3 +46,6 @@ class TrialLessonCreateView(CreateView):
 
 trial_lesson_create_view = TrialLessonCreateView.as_view()
 
+
+def load_homework(request: HttpRequest, id_homework_file):
+    return FileResponse(HomeWorkFile.objects.get(id=id_homework_file).homework_file.open())

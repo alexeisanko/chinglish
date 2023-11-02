@@ -70,27 +70,29 @@
       <h2 class="modal__title">Занятие</h2>
       <span class="teacher_name">{{ user_info.get_full_name|default:"Не заполнено имя" }}</span>
       <span class="date_lesson">{{ user_info.get_full_name|default:"Не заполнено имя" }}</span>
-      <form action="{% url 'teachers:update_lesson' %}" method="post" class="modal__form">
+      <form action="" method="post" class="modal__form">
 
         <span class="form-error error-message"></span>
         <input type="text" name="teacher" placeholder="Учитель" required hidden id="id_teacher"
                value="{{ user_info.id }}">
-        <span class="error-message"></span>
         <input type="text" name="date" placeholder="Учитель" required hidden id="id_date">
-        <span class="error-message"></span>
+        <input type="text" name="id_lesson" placeholder="Учитель" required hidden id="id_lesson">
         {{ form_lesson.type_lesson }}
         <span class="error-message"></span>
         {{ form_lesson.time }}
         <span class="error-message"></span>
-        {{ form_lesson.homework_text }}
-        <span class="error-message"></span>
+        <div class="lesson-created">
+          <h4 class="modal__title">Домашнее задание</h4>
+          {{ form_lesson.homework_text }}
+          <span class="error-message"></span>
 
+        </div>
         <input type="submit" value="Создать занятие">
         {% csrf_token %}
       </form>
       <div class="text-flex">
-          <span class="open_modal" data-modal="modal-lesson_student">Ученики</span>
-          <span class="open_modal" data-modal="modal-lesson_homework">Домашняя работа</span>
+        <span class="open_modal" data-modal="modal-lesson_student">Ученики</span>
+        <span class="open_modal" data-modal="modal-lesson_homework">Домашняя работа</span>
       </div>
     </div>
   </div>
@@ -98,20 +100,27 @@
     <div class="modal-content">
       <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
       <h2 class="modal__title">Посетители</h2>
-      <form action="{% url 'teachers:update_lesson' %}" method="post" class="modal__form">
+      <form action="{% url 'teachers:update_visitors' %}" method="post" class="modal__form">
         <p>Имя учителя</p>
         <p>Тип занятие | время занятия</p>
         <p>УЧЕНИКИ</p>
         <div class="multi-field-wrapper">
           <div class="multi-fields">
+            <input type="text" name="id_lesson" hidden="" class="form_id_lesson">
             <div class="multi-field">
-              <input placeholder="Введите ФИО ученика" type="text" name="stuff[]">
+              <input type="text" name="student_0" placeholder="Введите ФИО ученика" class="form_id_student"
+                     list="list_all_students">
             </div>
           </div>
-            <div class="text-flex">
-              <button type="button" class="remove-field btn">Удалить</button>
-              <button type="button" class="add-field btn">Добавить ученика</button>
-            </div>
+          <datalist id="list_all_students">
+            {% for student in all_students %}
+              <option value="{{ student.get_full_name }} id: {{ student.id }}">{{ student.get_full_name }}</option>
+            {% endfor %}
+          </datalist>
+          <div class="text-flex">
+            <button type="button" class="remove-field btn">Удалить</button>
+            <button type="button" class="add-field btn">Добавить ученика</button>
+          </div>
         </div>
         <span class="form-error error-message"></span>
         <span class="error-message"></span>
@@ -128,20 +137,21 @@
     <div class="modal-content">
       <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
       <h2 class="modal__title">Домашняя работа</h2>
-      <form action="{% url 'teachers:update_lesson' %}" method="post" class="modal__form">
+      <form action="{% url 'teachers:update_homework_file' %}" method="post" class="modal__form">
         <p>Имя учителя</p>
         <p>Тип занятие | время занятия</p>
         <p>Домашняя работа</p>
         <div class="multi-field-wrapper">
           <div class="multi-fields">
+            <input type="text" name="lesson" hidden="" class="form_id_lesson">
             <div class="multi-field">
-              <input type="file" name="stuff[]">
+              <input type="file" name="homework_0" placeholder="Выберите файл" class="form_file_homework">
             </div>
           </div>
-            <div class="text-flex">
-              <button type="button" class="remove-field btn">Удалить</button>
-              <button type="button" class="add-field btn">Добавить файл</button>
-            </div>
+          <div class="text-flex">
+            <button type="button" class="remove-field btn">Удалить</button>
+            <button type="button" class="add-field btn">Добавить файл</button>
+          </div>
         </div>
         <span class="form-error error-message"></span>
         <span class="error-message"></span>

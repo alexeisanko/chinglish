@@ -1,24 +1,60 @@
 $(document).ready(function () {
-    $('.multi-field-wrapper').each(function() {
+    $('.multi-field-wrapper').each(function () {
         var $wrapper = $('.multi-fields', this);
-        $(".add-field", $(this)).click(function(e) {
-            $('.multi-field:first-child', $wrapper).clone(true).appendTo($wrapper).find('input').val('').focus();
+        $(".add-field", $(this)).click(function (e) {
+            let next_field = $('.multi-field:last-child', $wrapper).clone(true).appendTo($wrapper).find('input').val('').focus();
+            $(next_field[0]).attr('name', incrementString($(next_field[0]).attr('name')))
         });
-        $('.multi-field .remove-field', $wrapper).click(function() {
+        $('.text-flex .remove-field').click(function () {
             if ($('.multi-field', $wrapper).length > 1)
-                $(this).parent('.multi-field').remove();
+                $('.multi-field:last-child', $wrapper).remove();
         });
     });
+
+    $('#modal-lesson_management, #modal-lesson_student').on("submit", "form", function (event) {
+        event.preventDefault();
+        DeleteErrors()
+        let $form = $(this);
+        SendAjaxForm($form, $(this).attr('action'), $(this).attr('method'), UpdateLessonInfo, is_file = true).then()
+        return false
+    })
+
+    $('#modal-lesson_homework').on("submit", "form", function (event) {
+        event.preventDefault();
+        DeleteErrors()
+        var fd = new FormData();
+        let $form = $(this);
+        for (let input of Object.values($form[0])) {
+            if (input.files) {
+                fd.append(input.files[0].name, input.files[0]);
+            } else {
+                fd.append(input.name, input.value);
+            }
+        }
+        $.ajax({
+            type: $(this).attr('method'),
+            url: $(this).attr('action'),
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: fd,
+            success: function (data) {
+                let full_data = {status: true, data: data}
+                UpdateLessonInfo($form, full_data)
+            },
+            error: function (data) {
+                let full_data = {status: false, data: data}
+                UpdateLessonInfo($form, full_data)
+            }
+        })
+        return false
+    })
+
 })
 
 document.addEventListener('DOMContentLoaded', function () {
     let calendarEl = document.getElementById('calendar');
-    RenderCalendar(calendarEl, lessons_json)
-});
-
-
-function RenderCalendar(calendarEl, events) {
-    let calendar = new FullCalendar.Calendar(calendarEl, {
+    var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         initialDate: new Date().toISOString().slice(0, 10),
         headerToolbar: {
@@ -26,25 +62,33 @@ function RenderCalendar(calendarEl, events) {
             center: 'title',
             right: 'dayGridMonth,timeGridWeek,timeGridDay'
         },
-        events: events,
+        events: lessons_json,
         navLinks: true,
         eventClick: function (info) {
             GetEvent(info.event.extendedProps.id_event)
         },
         dateClick: function (info) {
             MakeNewEvent(info.dateStr)
+
         },
         // navLinkDayClick: function (date) {
         //     GetWorkingConditions(date.toISOString())
         // }
     });
-    calendar.render();
-}
+    window.currentCalendar = {calendar: calendar};
+    currentCalendar.calendar.render();
+});
 
 function MakeNewEvent(date) {
     OpenModal('modal-lesson_management')
+    $("#modal-lesson_management form").attr('action', `create_lesson/`)
     $('#id_date').val(date)
+    $('.form_id_lesson').val(null)
+    $('.form_id_student').val(null)
     $('.date_lesson').text(date)
+    $('.link-homework-file').remove()
+    $('.lesson-created, .text-flex').css('display', 'none')
+
     CleanOption([input_type_lesson, input_time])
     input_type_lesson.options[0] = new Option("Выберите Вид занятия", null);
     let i = 1
@@ -52,64 +96,124 @@ function MakeNewEvent(date) {
         input_type_lesson.options[i] = new Option(type_lesson.type, type_lesson.id);
         i += 1
     }
+    $.ajax({
+        type: 'get',
+        url: `get_free_times/${date}/`,
+
+        success: function (free_times) {
+            input_time.options[0] = new Option("Выберите время", null);
+            i = 1
+            for (let free_time of free_times['free_time']) {
+                input_time.options[i] = new Option(free_time.time, free_time.id);
+                i += 1
+            }
+        },
+        error: function (data) {
+            console.log(data)
+        }
+    })
+    return false
 
 }
 
 function GetEvent(id_event) {
     $.ajax({
         type: 'GET',
-        url: '/api/get_select_event/',
+        url: `get_select_lesson/${id_event}`,
         dataType: 'json',
-        data: {
-            'id_event': id_event,
-        },
         success: function (data) {
-            let $modal = $('.modal__change-event')
-            $modal.addClass('modal--visible');
-            $modal.find($('.name_client')).text(data['client'])
-            $modal.find($('.car_client')).text(data['car'])
-            $modal.find($('.type_service')).text(data['service'])
-            $modal.find($("[name='start_time_plan']")).val(data['start_plan'].slice(0, 16))
-            $modal.find($("[name='end_time_plan']")).val(data['end_plan'].slice(0, 16))
-            if (data['start_fact']) {
-                $modal.find($("[name='start_time_fact']")).val(data['start_fact'].slice(0, 16))
+            console.log(data)
+
+            // Заполнение информации о студентах
+            let $wrapper = $('.multi-fields', '#modal-lesson_student .modal-content form .multi-field-wrapper')
+            while ($('.multi-field', $wrapper).length > 1) {
+                $('.multi-field:last-child', $wrapper).remove();
             }
-            if (data['end_fact']) {
-                $modal.find($("[name='end_time_fact']")).val(data['end_fact'].slice(0, 16))
+            $('.form_id_student').val(null)
+
+            if (data['students'].length > 0) {
+                let first_student = $('#modal-lesson_student .modal-content form .multi-field-wrapper .multi-field input')
+                first_student.val(`${data['students'][0]['name']} id: ${data['students'][0]['id']}`)
             }
-            $modal.find($("[name='status']")).val(data['status_service'])
-            $modal.find($("[name='worker']")).val(data['worker'])
-            $modal.find($("[name='event_id']")).val(id_event)
-            $modal.attr('data', id_event)
+            let next_field
+            for (let student of data['students'].slice(1)) {
+                next_field = $('.multi-field:last-child', $wrapper).clone(true).appendTo($wrapper).find('input').val(`${student['name']} id: ${student['id']}`)
+                $(next_field[0]).attr('name', incrementString($(next_field[0]).attr('name')))
+            }
+
+
+            // Заполнение информации о домашней работе
+            $('.lesson-created').css('display', 'block')
+            $('.text-flex').css('display', 'flex')
+            $wrapper = $('.multi-fields', '#modal-lesson_homework .modal-content form .multi-field-wrapper')
+            while ($('.multi-field', $wrapper).length > 1) {
+                $('.multi-field:last-child', $wrapper).remove();
+            }
+            let url_file
+            $('.link-homework-file').remove()
+            for (let file of data.homework) {
+                $(`<a href="/load_homework/${file.id}/" class="link-homework-file">${file.file}</a>`).appendTo($('.lesson-created'))
+            }
+            $('.form_id_homework').val(null)
+
+
+            OpenModal('modal-lesson_management')
+            $('#id_date').val(data.info_lesson.start.slice(0, 10))
+            $("#modal-lesson_management form").attr('action', `update_lesson/${id_event}/`)
+            $('.form_id_lesson').val(data.info_lesson.id_event)
+            $('#modal-lesson_student #id_form-0-lesson').val(data.info_lesson.id_event)
+            $('#modal-lesson_homework #id_form-0-lesson').val(data.info_lesson.id_event)
+            $('.date_lesson').text(data.info_lesson.start.slice(0, 10))
+
+            CleanOption([input_type_lesson, input_time])
+            let i = 0
+            for (let type_lesson of type_lessons_json) {
+                input_type_lesson.options[i] = new Option(type_lesson.type, type_lesson.id);
+                i += 1
+                if (data.info_lesson.title == input_type_lesson.options[i]) {
+                    input_type_lesson.options[i].selected = true
+                }
+            }
+            $.ajax({
+                type: 'get',
+                url: `get_free_times/${data.info_lesson.start.slice(0, 10)}/`,
+
+                success: function (free_times) {
+                    input_time.options[0] = new Option(data.info_lesson.start.slice(11, 16), data.info_lesson.id_time)
+                    input_time.options[0].selected = true
+                    i = 1
+                    for (let free_time of free_times['free_time']) {
+                        input_time.options[i] = new Option(free_time.time, free_time.id);
+                        i += 1
+
+                    }
+                },
+                error: function (data) {
+                    console.log(data)
+                }
+            })
         },
+        error: function (data) {
+            alert('Проблемы на сервере, попробуйте позже')
+        }
     })
 }
 
-function GetWorkingConditions(date) {
-    $.ajax({
-        type: 'GET',
-        url: '/api/get_working_conditions/',
-        dataType: 'json',
-        data: {
-            'date': date.slice(0, 10),
-        },
-        success: function (data) {
-            let $modal = $('.modal__change_work')
-            $modal.addClass('modal--visible');
-            $modal.find($('.modal__title')).text(`Условия работы ${date.slice(0, 10)}`)
-            if (data) {
-                console.log(data)
-                $modal.find($("[name='open_time']")).val(data['open'])
-                $modal.find($("[name='close_time']")).val(data['close'])
-                $modal.find($("[name='discount']")).val(data['discount'])
-            } else {
-                $modal.find($("[name='open_time']")).val(none)
-                $modal.find($("[name='close_time']")).val(none)
-                $modal.find($("[name='discount']")).val(none)
-            }
-        },
-    })
+function UpdateLessonInfo($form, response) {
+    if (response.status) {
+        DeleteErrors()
+        CloseModal()
+        location.reload()
+    } else {
+        let errors = response.data['responseJSON']
+        if (Object.keys(errors).length > 0) {
+            ShowErrorsForm($form, errors, true)
+        } else {
+            alert('Ошибка сервера')
+        }
+    }
 }
 
-
-
+function incrementString(str) {
+    return str.replace(/\d+/, s => (parseInt(s) + 1));
+}

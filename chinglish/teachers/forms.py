@@ -16,26 +16,18 @@ class PhotoTeacherForm(forms.ModelForm):
         fields = ['photo']
 
 
-class UpdateLessonForm(forms.ModelForm):
+class LessonForm(forms.ModelForm):
     class Meta:
         model = Lesson
         fields = ['teacher', 'date', 'type_lesson', 'time', 'homework_text']
         widgets = {
             'teacher': forms.TextInput(attrs={'placeholder': 'Учитель'}),
-            'date': forms.TextInput(attrs={'placeholder': 'Учитель'})
-
+            'date': forms.TextInput(attrs={'placeholder': 'Дата занятия'}),
+            'homework_text': forms.Textarea(attrs={'placeholder': 'Описание домашнего задания'})
         }
-    id_lesson = forms.IntegerField(widget=forms.NumberInput(attrs={'required': False, 'hidden': True}))
 
 
-class UpdateHomeWorkForm(forms.ModelForm):
+class ModelFormWithFileField(forms.ModelForm):
     class Meta:
         model = HomeWorkFile
-        fields = '__all__'
-
-
-class UpdateVisitorsForm(forms.ModelForm):
-    class Meta:
-        model = Visitors
-        fields = '__all__'
-
+        fields = ['lesson', 'homework_file']

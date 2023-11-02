@@ -12,6 +12,7 @@ $(document).ready(function () {
 })
 
 async function SendAjaxForm(ajax_form, url, method, next_func, data_type = 'json') {
+
     $.ajax({
         type: method,
         url: url,
@@ -55,7 +56,7 @@ function DeleteErrors(close_modal = false) {
     }
 }
 
-function ShowErrorsForm($form, errors, is_modal= false) {
+function ShowErrorsForm($form, errors, is_modal = false) {
     let field
     let message
     for (let error in errors) {
