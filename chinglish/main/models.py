@@ -58,8 +58,7 @@ class NotStandardDays(models.Model):
 
     class Meta:
         verbose_name = 'Нестандартный рабочий день'
-
-    verbose_name_plural = "Нестандартные рабочие дни"
+        verbose_name_plural = "Нестандартные рабочие дни"
 
 
 class Lesson(models.Model):
@@ -68,6 +67,13 @@ class Lesson(models.Model):
     date = models.DateField(verbose_name='Дата')
     time = models.ForeignKey(StartTime, verbose_name='Время', on_delete=models.PROTECT)
     homework_text = models.TextField(verbose_name='Домашнее задание', blank=True)
+
+    class Meta:
+        verbose_name = 'Занятие'
+        verbose_name_plural = "Занятия"
+
+    def __str__(self):
+        return f'{self.type_lesson}-{self.date} {self.time} ({self.teacher})'
 
 
 class Visitors(models.Model):

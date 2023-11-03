@@ -1,7 +1,6 @@
 from django.contrib import admin
 
-from chinglish.main.models import TypeLesson, TrialLesson, StartTime
-
+from chinglish.main.models import TypeLesson, TrialLesson, StartTime, Lesson, HomeWorkFile, Visitors
 
 @admin.register(TypeLesson)
 class TypeLessonAdmin(admin.ModelAdmin):
@@ -10,7 +9,7 @@ class TypeLessonAdmin(admin.ModelAdmin):
         ("Свойства", {"fields": (
             "is_group_lesson",
             "available_trial_lesson",
-            ),
+        ),
         },
          ),
         ("Прочее", {"fields": ("description",)}),
@@ -28,7 +27,7 @@ class TrialLessonAdmin(admin.ModelAdmin):
             "age",
             "classroom",
             "phone"
-            ),
+        ),
         },
          ),
     )
@@ -39,3 +38,27 @@ class TrialLessonAdmin(admin.ModelAdmin):
 @admin.register(StartTime)
 class StartTimeAdmin(admin.ModelAdmin):
     list_display = ['start_time']
+
+
+class HomeWorkFileAdmin(admin.TabularInline):
+    model = HomeWorkFile
+    list_display = ['homework_file']
+
+
+class StudentLessonAdmin(admin.TabularInline):
+    model = Visitors
+    list_display = ['student']
+
+
+@admin.register(Lesson)
+class LessonAdmin(admin.ModelAdmin):
+    inlines = [
+        HomeWorkFileAdmin,
+        StudentLessonAdmin
+    ]
+    fieldsets = (
+        ('Занятие', {"fields": ("teacher", "type_lesson", "date", "time")}),
+
+    )
+    list_display = ["type_lesson", "teacher", "date", "time"]
+    search_fields = ["teacher"]

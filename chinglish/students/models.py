@@ -1,4 +1,5 @@
 import re
+from datetime import date
 
 from django.db import models
 from django.core.validators import RegexValidator
@@ -18,8 +19,15 @@ class Student(models.Model):
     photo = models.ImageField(_('photo student'), upload_to='student', null=True, default=None)
     user = models.OneToOneField('users.User', on_delete=models.PROTECT, null=True)
 
+    class Meta:
+        verbose_name = 'Студент'
+        verbose_name_plural = "Студенты"
+
     def get_full_name(self):
-        full_name = f'{self.last_name} {self.first_name} {self.second_name}'
+        if self.first_name:
+            full_name = f'{self.last_name} {self.first_name} {self.second_name}'
+        else:
+            full_name = "Отсутствует"
         return full_name
 
     def get_short_name(self):
@@ -27,3 +35,10 @@ class Student(models.Model):
 
     def get_absolute_url(self):
         return f'/students/'
+
+    def get_age(self):
+        now = date.today()
+        age = now.year - self.birthday.year - ((now.month, now.day) < (self.birthday.month, self.birthday.day))
+        return age
+
+

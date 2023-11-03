@@ -15,11 +15,18 @@ class Teacher(models.Model):
     user = models.OneToOneField('users.User', verbose_name="ID пользователя", on_delete=models.PROTECT, null=True, default=None)
     photo = models.ImageField(verbose_name="Фото", upload_to='teacher', null=True, default=None)
 
+    class Meta:
+        verbose_name = 'Преподаватель'
+        verbose_name_plural = "Преподаватели"
+
     def __str__(self):
         return self.get_full_name()
 
     def get_full_name(self):
-        full_name = f'{self.last_name} {self.first_name} {self.second_name}'
+        if self.first_name:
+            full_name = f'{self.last_name} {self.first_name} {self.second_name}'
+        else:
+            full_name = "Отсутствует"
         return full_name
 
     def get_short_name(self):
