@@ -12,6 +12,7 @@ $(document).ready(function () {
     });
 
     $('#modal-lesson_management, #modal-lesson_student').on("submit", "form", function (event) {
+        console.log(event)
         event.preventDefault();
         DeleteErrors()
         let $form = $(this);
@@ -112,7 +113,6 @@ function MakeNewEvent(date) {
             console.log(data)
         }
     })
-    return false
 
 }
 

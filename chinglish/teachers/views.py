@@ -166,7 +166,8 @@ class CreateLessonView(CreateView):
 
     def form_valid(self, form):
         self.object = form.save()
-        return super().form_valid(form)
+        info_lesson = get_info_lesson_to_calendar(self.object)
+        return JsonResponse({'status': 'ok', 'info': info_lesson})
 
 
 create_lesson_view = CreateLessonView.as_view()
