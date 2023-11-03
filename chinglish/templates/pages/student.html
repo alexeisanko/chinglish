@@ -10,7 +10,7 @@
 {% endblock user_javascript %}
 
 {% block cabinet-data %}
-  <div class="cabinet-data data">
+  <div class="cabinet-data data" id="modal-user_cabinet">
     <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
     <h2 class="data__title">Личные данные</h2>
     <div class="data__img"><img
@@ -25,7 +25,7 @@
       <div class="data__info"><span>E-mail</span><span>{{ user.email|default:"Отсутствует" }}</span></div>
       <div class="data__info"><span>Уровень</span><span>Отсутствует</span></div>
       <div class="data__info"><span>Телефон</span><span>{{ user_info.phone|default:"Отсутствует" }}</span></div>
-      {% if user.last_name %}
+      {% if user_info.last_name %}
         <div class="data__info">
           <span>ФИО</span><span>{{ user_info.last_name }} {{ user_info.first_name }} {{ user_info.second_name }}</span>
         </div>
@@ -34,12 +34,13 @@
       {% endif %}
 
     </div>
-    <div class="btn btn-change">Редактировать данные</div>
+    <div class="btn btn-change-data open_modal" data-modal="modal-user_data">Редактировать данные</div>
+      <div class="btn btn-change open_modal" data-modal="modal-account_data">Изменить пароль</div>
   </div>
 {% endblock cabinet-data %}
 
 {% block add_custom_modal %}
-  <div class="modal modal-data" id="modal-data">
+  <div class="modal modal-data" id="modal-user_data">
     <div class="modal-content">
       <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
       <h2 class="modal__title">Изменение данных</h2>
