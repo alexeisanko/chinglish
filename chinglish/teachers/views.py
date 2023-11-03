@@ -124,7 +124,7 @@ def update_homework_file_view(request: HttpRequest):
                 form.save()
             else:
                 return JsonResponse(form.errors, status=500)
-        return JsonResponse({'status': 'ok'})
+        return JsonResponse({'status': 'ok', 'info': 'homework update'})
 
 
 def update_visitors_view(request: HttpRequest):
@@ -139,7 +139,7 @@ def update_visitors_view(request: HttpRequest):
         for id_student in id_students:
             student = Student.objects.get(id=id_student)
             Visitors.objects.create(lesson=lesson, student=student)
-        return JsonResponse({'status': 'ok'})
+        return JsonResponse({'status': 'ok', 'info': 'visitors update'})
 
 
 def get_free_times(request: HttpRequest, date: str):

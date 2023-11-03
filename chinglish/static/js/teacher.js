@@ -15,7 +15,7 @@ $(document).ready(function () {
         event.preventDefault();
         DeleteErrors()
         let $form = $(this);
-        SendAjaxForm($form, $(this).attr('action'), $(this).attr('method'), UpdateLessonInfo, is_file = true).then()
+        SendAjaxForm($form, $(this).attr('action'), $(this).attr('method'), UpdateLessonInfo).then()
         return false
     })
 
@@ -203,14 +203,26 @@ function UpdateLessonInfo($form, response) {
     if (response.status) {
         DeleteErrors()
         CloseModal()
-        location.reload()
-    } else {
-        let errors = response.data['responseJSON']
-        if (Object.keys(errors).length > 0) {
-            ShowErrorsForm($form, errors, true)
+        if (response.data.info === 'visitors update') {
+            alert("Студенты обновлены")
+        } else if (response.data.info  === 'homework update') {
+            alert("Домашняя работа обновлена")
         } else {
-            alert('Ошибка сервера')
+            location.reload()
         }
+    } else {
+        console.log(response)
+        let errors = response.data['responseJSON']
+        if (errors) {
+            if (Object.keys(errors).length > 0) {
+                ShowErrorsForm($form, errors, true)
+            } else {
+                alert('Ошибка сервера')
+            }
+        } else {
+            alert('Ошибка сервера. Скорее всего вы ввели некорректного ученика.')
+        }
+
     }
 }
 
