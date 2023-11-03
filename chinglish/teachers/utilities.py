@@ -84,7 +84,8 @@ def get_info_lesson_to_calendar(lesson):
                        lesson.time.start_time.minute) + datetime.timedelta(
                        minutes=lesson.type_lesson.duration)).isoformat(),
                    'id_event': lesson.id,
-                   'id_time': lesson.time.id}
+                   'id_time': lesson.time.id,
+                   'homework_text': lesson.homework_text}
     students = [{'name': student.get_full_name(), 'id': student.id} for student in
                 Student.objects.filter(visitors__lesson=lesson)]
     homework = [{'file': homework.homework_file.url, 'id': homework.id} for homework in

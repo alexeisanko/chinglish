@@ -155,6 +155,7 @@ function GetEvent(id_event) {
                 $(`<a href="/load_homework/${file.id}/" class="link-homework-file">${file.file}</a>`).appendTo($('.lesson-created'))
             }
             $('.form_id_homework').val(null)
+                $('#id_homework_text').val(data['info_lesson']['homework_text'])
 
 
             OpenModal('modal-lesson_management')

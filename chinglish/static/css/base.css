@@ -2,8 +2,30 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'Montserrat', sans-serif;
 }
-
+select option {
+    color: #000;
+}
+textarea::placeholder {
+    color: lightgrey;
+}
+input {
+    outline: none;
+}
+.acc-exit {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+}
+.link-homework-file, .acc-exit {
+    color: #fff;
+    display: block;
+}
+.link-homework-file:hover, .acc-exit:hover {
+    color: #fff;
+    text-decoration: underline;
+}
 .container {
   width: 90%;
   max-width: 1500px;

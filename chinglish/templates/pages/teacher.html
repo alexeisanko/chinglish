@@ -34,6 +34,7 @@
     </div>
     <div class="btn btn-change-data open_modal" data-modal="modal-user_data">Редактировать данные</div>
     <div class="btn btn-change open_modal" data-modal="modal-account_data">Изменить пароль</div>
+  <a href="http://alexeisanko-home.ru/account/logout" class="acc-exit">Выйти</a>
   </div>
 {% endblock cabinet-data %}
 
@@ -82,7 +83,7 @@
         <span class="error-message"></span>
         <div class="lesson-created">
           <h4 class="modal__title">Домашнее задание</h4>
-          {{ form_lesson.homework_text }}
+          <textarea name="homework_text" cols="40" rows="10" placeholder="Описание домашнего задания" id="id_homework_text"></textarea>
           <span class="error-message"></span>
 
         </div>
@@ -98,11 +99,8 @@
   <div class="modal modal-data" id="modal-lesson_student">
     <div class="modal-content">
       <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
-      <h2 class="modal__title">Посетители</h2>
+      <h2 class="modal__title">Ученики</h2>
       <form action="{% url 'teachers:update_visitors' %}" method="post" class="modal__form">
-        <p>Имя учителя</p>
-        <p>Тип занятие | время занятия</p>
-        <p>УЧЕНИКИ</p>
         <div class="multi-field-wrapper">
           <div class="multi-fields">
             <input type="text" name="id_lesson" hidden="" class="form_id_lesson">
@@ -136,9 +134,7 @@
       <a href="#" class="modal__close"><img src="{% static 'images/close.svg' %}" alt="х"></a>
       <h2 class="modal__title">Домашняя работа</h2>
       <form action="{% url 'teachers:update_homework_file' %}" method="post" class="modal__form">
-        <p>Имя учителя</p>
-        <p>Тип занятие | время занятия</p>
-        <p>Домашняя работа</p>
+
         <div class="multi-field-wrapper">
           <div class="multi-fields">
             <input type="text" name="lesson" hidden="" class="form_id_lesson">
